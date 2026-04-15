@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "nailart",
-  description: "thumbnail generator",
+  title: "연인당 - 사주 · 운세",
+  description: "타고난 운명과 인생 전반의 총운 분석",
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ko"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="mx-auto min-h-full max-w-2xl flex flex-col">

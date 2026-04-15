@@ -1,3 +1,5 @@
+export type Category = "종합" | "연애" | "재물" | "궁합" | "기타";
+
 export interface Product {
   id: string;
   name: string;
@@ -6,6 +8,7 @@ export interface Product {
   href: string;
   price: number;
   originalPrice: number;
+  category: Category;
   intro: string[];
   sections: string[];
 }
@@ -19,6 +22,7 @@ export const products: Product[] = [
     href: "/jonghap",
     price: 15000,
     originalPrice: 30000,
+    category: "종합",
     intro: [
       "내 인생의 모든 것을 꿰뚫어보는 사주풀이.",
       "냉정하고 직설적인 평생사주 분석",
@@ -45,6 +49,7 @@ export const products: Product[] = [
     href: "/sinnyeon",
     price: 12000,
     originalPrice: 25000,
+    category: "종합",
     intro: [
       "2026년 병오년, 나에게 어떤 한 해가 펼쳐질까?",
       "새해 운세를 미리 확인하고 준비하세요.",
@@ -63,6 +68,8 @@ export const products: Product[] = [
     ],
   },
 ];
+
+export const categories: Category[] = ["종합", "연애", "재물", "궁합", "기타"];
 
 export function getProductByCategory(category: string): Product | undefined {
   return products.find((p) => p.id === category);
