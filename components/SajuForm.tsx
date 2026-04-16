@@ -1,36 +1,38 @@
 "use client";
 
 import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 
 const years = Array.from({ length: 100 }, (_, i) => 2026 - i);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
 const days = Array.from({ length: 31 }, (_, i) => i + 1);
-const birthTimes = [
-  "태어난 시 - 모름",
-  "자시 (23:00~01:00)",
-  "축시 (01:00~03:00)",
-  "인시 (03:00~05:00)",
-  "묘시 (05:00~07:00)",
-  "진시 (07:00~09:00)",
-  "사시 (09:00~11:00)",
-  "오시 (11:00~13:00)",
-  "미시 (13:00~15:00)",
-  "신시 (15:00~17:00)",
-  "유시 (17:00~19:00)",
-  "술시 (19:00~21:00)",
-  "해시 (21:00~23:00)",
-];
+const hours = Array.from({ length: 24 }, (_, i) => i);
+const minutes = Array.from({ length: 60 }, (_, i) => i);
 
-export default function SajuForm({ productName }: { productName: string }) {
-  const [gender, setGender] = useState<"male" | "female">("male");
+interface SajuFormProps {
+  productId: string;
+  productName: string;
+  price: number;
+}
+
+export default function SajuForm({
+  productId,
+  productName,
+  price,
+}: SajuFormProps) {
+  const [gender, setGender] = useState<"남" | "여">("남");
   const [calendarType, setCalendarType] = useState("양력");
   const [year, setYear] = useState(1985);
   const [month, setMonth] = useState(1);
   const [day, setDay] = useState(1);
-  const [birthTime, setBirthTime] = useState(birthTimes[0]);
+  const [birthHour, setBirthHour] = useState<number | null>(null);
+  const [birthMinute, setBirthMinute] = useState<number | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [agreeAll, setAgreeAll] = useState(false);
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [agreePrivacy, setAgreePrivacy] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function handleAgreeAll() {
     const next = !agreeAll;
@@ -39,16 +41,81 @@ export default function SajuForm({ productName }: { productName: string }) {
     setAgreePrivacy(next);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    if (!name.trim()) {
+      alert("이름을 입력해주세요.");
+      return;
+    }
+    if (!email.trim() || !email.includes("@")) {
+      alert("올바른 이메일 주소를 입력해주세요.");
+      return;
+    }
     if (!agreeTerms || !agreePrivacy) {
       alert("필수 동의 항목에 모두 동의해주세요.");
       return;
     }
-    alert("결제 기능은 추후 연동 예정입니다.");
+
+    setIsSubmitting(true);
+
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.from("orders").insert({
+        product_id: productId,
+        product_name: productName,
+        price,
+        email: email.trim(),
+        name: name.trim(),
+        calendar_type: calendarType,
+        birth_year: year,
+        birth_month: month,
+        birth_day: day,
+        birth_hour: birthHour,
+        birth_minute: birthMinute,
+        gender,
+      });
+
+      if (error) {
+        alert("주문 중 오류가 발생했습니다. 다시 시도해주세요.");
+        console.error("Order error:", error);
+        return;
+      }
+
+      alert("주문이 완료되었습니다! 결제 기능은 추후 연동 예정입니다.");
+    } catch (err) {
+      alert("주문 중 오류가 발생했습니다. 다시 시도해주세요.");
+      console.error("Order error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <div className="space-y-6">
+      {/* 주문자 정보 */}
+      <div className="rounded-lg border border-gray-200 bg-white p-4">
+        <h3 className="mb-4 text-lg font-bold text-red-500">주문자 정보</h3>
+        <div className="mb-4">
+          <p className="mb-2 text-sm text-gray-600">이름</p>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="이름을 입력하세요"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+          />
+        </div>
+        <div>
+          <p className="mb-2 text-sm text-gray-600">이메일</p>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="이메일을 입력하세요"
+            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+          />
+        </div>
+      </div>
+
       {/* 사주 정보 입력 */}
       <div className="rounded-lg border border-gray-200 bg-white p-4">
         <h3 className="mb-4 text-lg font-bold text-red-500">사주 정보</h3>
@@ -58,9 +125,9 @@ export default function SajuForm({ productName }: { productName: string }) {
           <p className="mb-2 text-sm text-gray-600">성별</p>
           <div className="flex gap-2">
             <button
-              onClick={() => setGender("male")}
+              onClick={() => setGender("남")}
               className={`rounded-lg border px-6 py-2 text-sm font-medium transition ${
-                gender === "male"
+                gender === "남"
                   ? "border-gray-900 bg-gray-900 text-white"
                   : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
               }`}
@@ -68,9 +135,9 @@ export default function SajuForm({ productName }: { productName: string }) {
               남자
             </button>
             <button
-              onClick={() => setGender("female")}
+              onClick={() => setGender("여")}
               className={`rounded-lg border px-6 py-2 text-sm font-medium transition ${
-                gender === "female"
+                gender === "여"
                   ? "border-gray-900 bg-gray-900 text-white"
                   : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
               }`}
@@ -99,7 +166,7 @@ export default function SajuForm({ productName }: { productName: string }) {
             >
               {years.map((y) => (
                 <option key={y} value={y}>
-                  {y} 년
+                  {y}년
                 </option>
               ))}
             </select>
@@ -130,18 +197,37 @@ export default function SajuForm({ productName }: { productName: string }) {
 
         {/* 태어난 시간 */}
         <div>
-          <p className="mb-2 text-sm text-gray-600">태어난 시간</p>
-          <select
-            value={birthTime}
-            onChange={(e) => setBirthTime(e.target.value)}
-            className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
-          >
-            {birthTimes.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
-            ))}
-          </select>
+          <p className="mb-2 text-sm text-gray-600">태어난 시간 (모르면 비워두세요)</p>
+          <div className="flex gap-2">
+            <select
+              value={birthHour ?? ""}
+              onChange={(e) =>
+                setBirthHour(e.target.value === "" ? null : Number(e.target.value))
+              }
+              className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            >
+              <option value="">시</option>
+              {hours.map((h) => (
+                <option key={h} value={h}>
+                  {h}시
+                </option>
+              ))}
+            </select>
+            <select
+              value={birthMinute ?? ""}
+              onChange={(e) =>
+                setBirthMinute(e.target.value === "" ? null : Number(e.target.value))
+              }
+              className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
+            >
+              <option value="">분</option>
+              {minutes.map((m) => (
+                <option key={m} value={m}>
+                  {m}분
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 
@@ -194,9 +280,10 @@ export default function SajuForm({ productName }: { productName: string }) {
       {/* 결제 버튼 */}
       <button
         onClick={handleSubmit}
-        className="w-full rounded-lg bg-gray-900 py-4 text-lg font-bold text-white transition hover:bg-gray-700"
+        disabled={isSubmitting}
+        className="w-full rounded-lg bg-gray-900 py-4 text-lg font-bold text-white transition hover:bg-gray-700 disabled:bg-gray-400"
       >
-        운세보기
+        {isSubmitting ? "주문 처리 중..." : `${price.toLocaleString()}원 결제하기`}
       </button>
 
       {/* 안내 사항 */}
