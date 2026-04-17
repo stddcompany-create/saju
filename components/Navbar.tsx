@@ -33,8 +33,20 @@ export default function Navbar() {
     router.refresh();
   };
 
+  useEffect(() => {
+    if (menuOpen) {
+      const original = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = original;
+      };
+    }
+  }, [menuOpen]);
+
+  const closeMenu = () => setMenuOpen(false);
+
   return (
-    <nav className="bg-white shadow-md">
+    <nav className="relative bg-white">
       {/* 1줄: 사이트 이름 + 햄버거 */}
       <div className="flex items-center justify-between px-4 py-3">
         {isHome ? (
@@ -44,64 +56,79 @@ export default function Navbar() {
         ) : (
           <button
             onClick={() => router.back()}
-            className="text-2xl text-gray-700"
+            className="text-gray-700"
             aria-label="뒤로가기"
           >
-            &#x3C;
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
+            </svg>
           </button>
         )}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="text-2xl text-gray-700 focus:outline-none"
-          aria-label="메뉴 열기"
+          aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
         >
-          ☰
+          {menuOpen ? "×" : "☰"}
         </button>
       </div>
 
-      {/* 햄버거 메뉴 */}
+      {/* 메뉴 영역만 오버레이 */}
       {menuOpen && (
-        <div className="border-t border-gray-200 px-4 py-2">
-          <Link
-            href="/"
-            className="block py-2 text-gray-700 hover:text-gray-900"
-            onClick={() => setMenuOpen(false)}
-          >
-            홈
-          </Link>
-          <Link
-            href="/jonghap"
-            className="block py-2 text-gray-700 hover:text-gray-900"
-            onClick={() => setMenuOpen(false)}
-          >
-            평생사주
-          </Link>
-          <Link
-            href="/sinnyeon"
-            className="block py-2 text-gray-700 hover:text-gray-900"
-            onClick={() => setMenuOpen(false)}
-          >
-            2026년 신년운세
-          </Link>
-
-          <hr className="my-2 border-gray-200" />
-
-          {user ? (
-            <button
-              onClick={handleLogout}
-              className="block w-full py-2 text-left text-gray-700 hover:text-gray-900"
-            >
-              로그아웃 ({user.user_metadata?.name || "사용자"})
-            </button>
-          ) : (
+        <div className="absolute left-0 right-0 top-full z-50 border border-gray-100 bg-white">
+          <div className="px-4 py-2">
             <Link
-              href="/login"
-              className="block py-2 text-blue-600 font-semibold hover:text-blue-800"
-              onClick={() => setMenuOpen(false)}
+              href="/"
+              className="block py-3 text-gray-800 hover:text-gray-900"
+              onClick={closeMenu}
             >
-              로그인
+              홈
             </Link>
-          )}
+            <Link
+              href="/jonghap"
+              className="block py-3 text-gray-800 hover:text-gray-900"
+              onClick={closeMenu}
+            >
+              평생사주
+            </Link>
+            <Link
+              href="/sinnyeon"
+              className="block py-3 text-gray-800 hover:text-gray-900"
+              onClick={closeMenu}
+            >
+              2026년 신년운세
+            </Link>
+
+            <hr className="my-2 border-gray-200" />
+
+            {user ? (
+              <button
+                onClick={handleLogout}
+                className="block w-full py-3 text-left text-gray-800 hover:text-gray-900"
+              >
+                로그아웃 ({user.user_metadata?.name || "사용자"})
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="block py-3 font-semibold text-blue-600 hover:text-blue-800"
+                onClick={closeMenu}
+              >
+                로그인
+              </Link>
+            )}
+          </div>
         </div>
       )}
     </nav>

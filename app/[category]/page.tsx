@@ -57,11 +57,7 @@ export default async function CategoryPage({
 
       {/* 사주 정보 입력 + 동의 + 결제 */}
       <div className="mt-8">
-        <SajuForm
-          productId={product.id}
-          productName={product.name}
-          price={product.price}
-        />
+        <SajuForm productId={product.id} price={product.price} />
       </div>
 
       {/* 운세 구성 */}
