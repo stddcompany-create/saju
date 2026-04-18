@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { getProductByCategory } from "@/lib/products";
 
 interface OrderRequest {
@@ -121,7 +121,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const supabase = await createClient();
+  const supabase = createAdminClient();
   const { error } = await supabase.from("orders").insert({
     product_id: product.id,
     product_name: product.name,

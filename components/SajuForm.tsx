@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const years = Array.from({ length: 100 }, (_, i) => 2026 - i);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -248,8 +249,8 @@ export default function SajuForm({ productId, price }: SajuFormProps) {
           전체동의
         </label>
         <hr className="border-gray-200" />
-        <label className="flex cursor-pointer items-center justify-between text-sm text-gray-600">
-          <span className="flex items-center gap-2">
+        <div className="flex items-center justify-between text-sm text-gray-600">
+          <label className="flex cursor-pointer items-center gap-2">
             <input
               type="checkbox"
               checked={agreeTerms}
@@ -261,11 +262,19 @@ export default function SajuForm({ productId, price }: SajuFormProps) {
               className="h-4 w-4 rounded border-gray-300"
             />
             서비스 이용 약관에 동의(필수)
-          </span>
-          <span className="text-gray-400">&gt;</span>
-        </label>
-        <label className="flex cursor-pointer items-center justify-between text-sm text-gray-600">
-          <span className="flex items-center gap-2">
+          </label>
+          <Link
+            href="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gray-700"
+            aria-label="이용약관 전문 보기 (새 창)"
+          >
+            &gt;
+          </Link>
+        </div>
+        <div className="flex items-center justify-between text-sm text-gray-600">
+          <label className="flex cursor-pointer items-center gap-2">
             <input
               type="checkbox"
               checked={agreePrivacy}
@@ -277,9 +286,17 @@ export default function SajuForm({ productId, price }: SajuFormProps) {
               className="h-4 w-4 rounded border-gray-300"
             />
             개인정보 수집 및 이용동의(필수)
-          </span>
-          <span className="text-gray-400">&gt;</span>
-        </label>
+          </label>
+          <Link
+            href="/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-gray-700"
+            aria-label="개인정보처리방침 보기 (새 창)"
+          >
+            &gt;
+          </Link>
+        </div>
       </div>
 
       {/* 결제 버튼 */}
