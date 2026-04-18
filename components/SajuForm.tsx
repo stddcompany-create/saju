@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 const years = Array.from({ length: 100 }, (_, i) => 2026 - i);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -11,15 +10,10 @@ const minutes = Array.from({ length: 60 }, (_, i) => i);
 
 interface SajuFormProps {
   productId: string;
-  productName: string;
   price: number;
 }
 
-export default function SajuForm({
-  productId,
-  productName,
-  price,
-}: SajuFormProps) {
+export default function SajuForm({ productId, price }: SajuFormProps) {
   const [gender, setGender] = useState<"남" | "여">("남");
   const [calendarType, setCalendarType] = useState("양력");
   const [year, setYear] = useState(1985);
@@ -58,25 +52,30 @@ export default function SajuForm({
     setIsSubmitting(true);
 
     try {
-      const supabase = createClient();
-      const { error } = await supabase.from("orders").insert({
-        product_id: productId,
-        product_name: productName,
-        price,
-        email: email.trim(),
-        name: name.trim(),
-        calendar_type: calendarType,
-        birth_year: year,
-        birth_month: month,
-        birth_day: day,
-        birth_hour: birthHour,
-        birth_minute: birthMinute,
-        gender,
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId,
+          name: name.trim(),
+          email: email.trim(),
+          calendarType,
+          birthYear: year,
+          birthMonth: month,
+          birthDay: day,
+          birthHour,
+          birthMinute,
+          gender,
+          agreeTerms,
+          agreePrivacy,
+        }),
       });
 
-      if (error) {
-        alert("주문 중 오류가 발생했습니다. 다시 시도해주세요.");
-        console.error("Order error:", error);
+      if (!res.ok) {
+        const data = (await res.json().catch(() => null)) as {
+          error?: string;
+        } | null;
+        alert(data?.error ?? "주문 중 오류가 발생했습니다. 다시 시도해주세요.");
         return;
       }
 
@@ -197,12 +196,16 @@ export default function SajuForm({
 
         {/* 태어난 시간 */}
         <div>
-          <p className="mb-2 text-sm text-gray-600">태어난 시간 (모르면 비워두세요)</p>
+          <p className="mb-2 text-sm text-gray-600">
+            태어난 시간 (모르면 비워두세요)
+          </p>
           <div className="flex gap-2">
             <select
               value={birthHour ?? ""}
               onChange={(e) =>
-                setBirthHour(e.target.value === "" ? null : Number(e.target.value))
+                setBirthHour(
+                  e.target.value === "" ? null : Number(e.target.value),
+                )
               }
               className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
             >
@@ -216,7 +219,9 @@ export default function SajuForm({
             <select
               value={birthMinute ?? ""}
               onChange={(e) =>
-                setBirthMinute(e.target.value === "" ? null : Number(e.target.value))
+                setBirthMinute(
+                  e.target.value === "" ? null : Number(e.target.value),
+                )
               }
               className="rounded-lg border border-gray-300 px-3 py-2 text-sm"
             >
@@ -283,7 +288,9 @@ export default function SajuForm({
         disabled={isSubmitting}
         className="w-full rounded-lg bg-gray-900 py-4 text-lg font-bold text-white transition hover:bg-gray-700 disabled:bg-gray-400"
       >
-        {isSubmitting ? "주문 처리 중..." : `${price.toLocaleString()}원 결제하기`}
+        {isSubmitting
+          ? "주문 처리 중..."
+          : `${price.toLocaleString()}원 결제하기`}
       </button>
 
       {/* 안내 사항 */}
