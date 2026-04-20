@@ -24,32 +24,37 @@ export default function Home() {
       />
 
       {/* 히어로 섹션 */}
-      <section className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden bg-gray-50 px-6 text-center">
-        {/* 장식 요소 */}
-        <div className="absolute top-10 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-blue-100 blur-3xl" />
-        <div className="absolute bottom-20 left-1/4 h-32 w-32 rounded-full bg-amber-100 blur-3xl" />
+      <section
+        className="relative flex min-h-[70vh] flex-col items-center justify-center overflow-hidden px-6 text-center"
+        style={{
+          backgroundImage: "url('/images/hero.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* 이미지 위 어두운 오버레이 (텍스트 가독성용) */}
+        <div className="absolute inset-0 bg-black/30" />
 
-        <p className="mb-3 text-sm tracking-widest text-gray-400">
-          영사주 사주 · 운세
-        </p>
-        <h1 className="text-[32px] font-extrabold leading-[1.4] text-gray-900">
-          3평짜리 철학관에서
-          <br />
-          <span className="text-blue-600">지인소개로만 10년간</span>
-          <br />
-          사주를 봐왔습니다
-        </h1>
-        <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-500">
-          냉정하고 직설적인 사주 분석으로
-          <br />
-          인생의 나침반이 되어드립니다
-        </p>
-        <Link
-          href="#products"
-          className="mt-8 rounded-full bg-gray-900 px-8 py-3 text-sm font-bold text-white transition hover:bg-gray-700"
-        >
-          운세 보러가기
-        </Link>
+        <div className="relative z-10">
+          <h1 className="text-[32px] font-extrabold leading-[1.4] text-white drop-shadow-lg">
+            3평 철학관에서
+            <br />
+            <span className="text-amber-300">10년간 지인소개로만</span>
+            <br />
+            사주를 봐왔습니다
+          </h1>
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-100 drop-shadow">
+            냉정하고 직설적인 사주 분석으로
+            <br />
+            인생의 나침반이 되어드립니다
+          </p>
+          <Link
+            href="#products"
+            className="mt-8 inline-block rounded-full bg-white px-8 py-3 text-sm font-bold text-gray-900 transition hover:bg-gray-100"
+          >
+            운세 보러가기
+          </Link>
+        </div>
 
         {/* 하단 그라디언트 */}
         <div className="absolute bottom-0 left-0 h-20 w-full bg-linear-to-t from-white to-transparent" />
