@@ -51,7 +51,7 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-4 py-3">
         {isHome ? (
           <Link href="/" className="text-xl font-bold text-gray-900">
-            연인당
+            영사주
           </Link>
         ) : (
           <button

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "이용약관 - 연인당",
-  description: "연인당 사주풀이 서비스 이용약관",
+  title: "이용약관 - 영사주",
+  description: "영사주 사주풀이 서비스 이용약관",
 };
 
 interface Article {
@@ -15,7 +15,7 @@ const articles: Article[] = [
     title: "제1조 (목적)",
     body: (
       <p>
-        이 약관은 연인당(이하 &quot;회사&quot;)이 운영하는 연인당 사주풀이 및
+        이 약관은 그릿(이하 &quot;회사&quot;)이 운영하는 영사주 사주풀이 및
         운세 서비스(이하 &quot;서비스&quot;)의 이용과 관련하여 회사와 이용자 간의
         권리, 의무 및 책임사항, 서비스 이용조건 및 절차 등 기본적인 사항을
         규정함을 목적으로 합니다.
@@ -210,7 +210,7 @@ const articles: Article[] = [
           사정에 따라 환불 완료까지 추가 시일이 소요될 수 있습니다.
         </li>
         <li>
-          환불 요청은 서비스 내 고객센터 또는 회사의 이메일(yeonindang@gmail.com)로
+          환불 요청은 서비스 내 고객센터 또는 회사의 이메일(youngsaju@gmail.com)로
           접수할 수 있습니다.
         </li>
       </ol>
@@ -407,17 +407,19 @@ const articles: Article[] = [
         <p>서비스 이용 중 문의사항이 있을 경우 아래 연락처로 문의하실 수 있습니다.</p>
         <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
           <dt className="font-medium text-gray-900">상호</dt>
-          <dd>연인당</dd>
+          <dd>그릿</dd>
           <dt className="font-medium text-gray-900">대표자</dt>
-          <dd>박보람</dd>
+          <dd>이재민</dd>
           <dt className="font-medium text-gray-900">사업자등록번호</dt>
-          <dd>646-24-01626</dd>
+          <dd>231-15-02173</dd>
+          <dt className="font-medium text-gray-900">통신판매업 신고번호</dt>
+          <dd>2022-고양일산동-2720</dd>
           <dt className="font-medium text-gray-900">주소</dt>
-          <dd>경기도 김포시 김포한강9로 95, 3층 303-612호(구래동)</dd>
+          <dd>경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동, 아트다운)</dd>
           <dt className="font-medium text-gray-900">이메일</dt>
-          <dd>yeonindang@gmail.com</dd>
+          <dd>youngsaju@gmail.com</dd>
           <dt className="font-medium text-gray-900">전화</dt>
-          <dd>070-7954-9161</dd>
+          <dd>010-2889-0744</dd>
         </dl>
       </>
     ),

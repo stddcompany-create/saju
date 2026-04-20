@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "연인당 - 사주 · 운세",
+  title: "영사주 - 사주 · 운세",
   description: "타고난 운명과 인생 전반의 총운 분석",
 };
 

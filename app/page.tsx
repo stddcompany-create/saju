@@ -30,7 +30,7 @@ export default function Home() {
         <div className="absolute bottom-20 left-1/4 h-32 w-32 rounded-full bg-amber-100 blur-3xl" />
 
         <p className="mb-3 text-sm tracking-widest text-gray-400">
-          연인당 사주 · 운세
+          영사주 사주 · 운세
         </p>
         <h1 className="text-[32px] font-extrabold leading-[1.4] text-gray-900">
           3평짜리 철학관에서
@@ -90,7 +90,7 @@ export default function Home() {
         <p className="mt-8 text-2xl font-extrabold text-gray-300">VS</p>
 
         <div className="mt-8 rounded-2xl border border-blue-200 bg-blue-50 p-6">
-          <p className="text-sm text-blue-600">연인당 정통 사주</p>
+          <p className="text-sm text-blue-600">영사주 정통 사주</p>
           <p className="mt-2 text-3xl font-extrabold text-gray-900">
             15,000<span className="text-lg text-gray-400"> 원~</span>
           </p>

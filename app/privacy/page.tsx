@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "개인정보처리방침 - 연인당",
-  description: "연인당 사주풀이 서비스 개인정보처리방침",
+  title: "개인정보처리방침 - 영사주",
+  description: "영사주 사주풀이 서비스 개인정보처리방침",
 };
 
 interface Article {
@@ -291,7 +291,7 @@ const articles: Article[] = [
         </li>
         <li>
           위 권리 행사는 서비스 내 고객센터 또는 회사
-          이메일(yeonindang@gmail.com)을 통해 서면, 전자우편 등으로 하실 수
+          이메일(youngsaju@gmail.com)을 통해 서면, 전자우편 등으로 하실 수
           있으며, 회사는 이에 대해 지체 없이 조치하겠습니다.
         </li>
         <li>
@@ -404,13 +404,13 @@ const articles: Article[] = [
         </p>
         <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
           <dt className="font-medium text-gray-900">이름</dt>
-          <dd>박보람</dd>
+          <dd>이재민</dd>
           <dt className="font-medium text-gray-900">직위</dt>
           <dd>대표</dd>
           <dt className="font-medium text-gray-900">연락처</dt>
-          <dd>070-7954-9161</dd>
+          <dd>010-2889-0744</dd>
           <dt className="font-medium text-gray-900">이메일</dt>
-          <dd>yeonindang@gmail.com</dd>
+          <dd>youngsaju@gmail.com</dd>
         </dl>
       </>
     ),
@@ -468,7 +468,7 @@ export default function PrivacyPage() {
       <section className="space-y-6 text-sm leading-relaxed text-gray-700">
         <article className="rounded-lg border border-gray-200 bg-white p-4">
           <p>
-            연인당(이하 &quot;회사&quot;)은 「개인정보 보호법」 및 관련 법령을
+            그릿(이하 &quot;회사&quot;)은 「개인정보 보호법」 및 관련 법령을
             준수하며, 이용자의 개인정보를 보호하고 이와 관련된 고충을 신속하고
             원활하게 처리하기 위하여 본 개인정보처리방침을 수립·공개합니다.
           </p>

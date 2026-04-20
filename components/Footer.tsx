@@ -1,12 +1,13 @@
 import Link from "next/link";
 
 const businessInfo: { label: string; value: string }[] = [
-  { label: "상호명", value: "연인당" },
-  { label: "대표자", value: "박보람" },
-  { label: "사업자등록번호", value: "646-24-01626" },
-  { label: "주소", value: "경기도 김포시 김포한강9로 95, 3층 303-612호(구래동)" },
-  { label: "이메일", value: "yeonindang@gmail.com" },
-  { label: "전화", value: "070-7954-9161" },
+  { label: "상호명", value: "그릿" },
+  { label: "대표자", value: "이재민" },
+  { label: "사업자등록번호", value: "231-15-02173" },
+  { label: "통신판매업 신고번호", value: "2022-고양일산동-2720" },
+  { label: "주소", value: "경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동, 아트다운)" },
+  { label: "이메일", value: "youngsaju@gmail.com" },
+  { label: "전화", value: "010-2889-0744" },
 ];
 
 export default function Footer() {
@@ -52,7 +53,7 @@ export default function Footer() {
       </dl>
 
       <p className="mt-4 border-t border-gray-100 pt-3 text-xs text-gray-400">
-        &copy; 2026 연인당. All rights reserved.
+        &copy; 2026 그릿. All rights reserved.
       </p>
     </footer>
   );
