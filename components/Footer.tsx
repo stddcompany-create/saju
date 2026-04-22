@@ -1,4 +1,9 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const HIDE_FOOTER_PATHS = ["/test"];
 
 const businessInfo: { label: string; value: string }[] = [
   { label: "상호명", value: "그릿" },
@@ -11,6 +16,10 @@ const businessInfo: { label: string; value: string }[] = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  const shouldHide = HIDE_FOOTER_PATHS.some((p) => pathname.startsWith(p));
+  if (shouldHide) return null;
+
   return (
     <footer className="mt-auto border-t border-gray-200 bg-white px-4 py-6 text-sm text-gray-500">
       <nav
