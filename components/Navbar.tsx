@@ -6,6 +6,8 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
+const HIDE_NAVBAR_PATHS = ["/jonghap", "/sinnyeon", "/test"];
+
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -44,6 +46,9 @@ export default function Navbar() {
   }, [menuOpen]);
 
   const closeMenu = () => setMenuOpen(false);
+
+  const shouldHide = HIDE_NAVBAR_PATHS.some((p) => pathname.startsWith(p));
+  if (shouldHide) return null;
 
   return (
     <nav className="relative bg-white">
