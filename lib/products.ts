@@ -19,7 +19,7 @@ export const products: Product[] = [
     name: "평생사주",
     description: "타고난 운명과 인생 전반의 총운 분석",
     image: "/images/jonghap.svg",
-    href: "/jonghap",
+    href: "/test",
     price: 15000,
     originalPrice: 30000,
     category: "종합",
