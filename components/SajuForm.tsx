@@ -311,12 +311,40 @@ export default function SajuForm({ productId, price }: SajuFormProps) {
       </button>
 
       {/* 안내 사항 */}
-      <div className="rounded-lg bg-yellow-50 px-4 py-3 text-xs text-gray-500">
-        <p>※ 운세 구매 후 90일 동안 운세를 다시 보실 수 있습니다.</p>
-        <p className="mt-1">
-          ※ 고객님의 실수로 인하여 결제된 서비스에 대해서는 교환 및 환불이
-          불가능해요.
-        </p>
+      <div className="space-y-3">
+        <div className="rounded-lg bg-yellow-50 px-4 py-3 text-xs text-gray-500">
+          <p>※ 결제 완료 후 영업일 1~2일 이내 PDF 파일로 발송됩니다.</p>
+          <p className="mt-1">※ 발송 후 7일간 재다운로드가 가능합니다.</p>
+        </div>
+
+        <div className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-xs">
+          <p className="font-semibold text-gray-900">[환불 안내]</p>
+
+          <p className="mt-2 font-medium text-emerald-700">✅ 환불 가능</p>
+          <ul className="mt-1 list-disc space-y-0.5 pl-5 text-gray-600">
+            <li>결제일로부터 7일 이내</li>
+            <li>결제 후 PDF 미수령 (3영업일 경과)</li>
+            <li>회사 귀책으로 콘텐츠 미제공·오류</li>
+          </ul>
+
+          <p className="mt-2 font-medium text-rose-700">❌ 환불 불가</p>
+          <ul className="mt-1 list-disc space-y-0.5 pl-5 text-gray-600">
+            <li>PDF 열람 또는 다운로드 이후</li>
+            <li>단순 변심·해석 불만족</li>
+          </ul>
+
+          <p className="mt-3 text-gray-500">
+            자세한 환불 기준은{" "}
+            <Link
+              href="/terms#article-7"
+              target="_blank"
+              className="text-blue-600 hover:underline"
+            >
+              이용약관 제7조
+            </Link>
+            를 확인해주세요.
+          </p>
+        </div>
       </div>
     </div>
   );
