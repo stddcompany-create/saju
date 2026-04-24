@@ -11,7 +11,7 @@ const businessInfo: { label: string; value: string }[] = [
   { label: "사업자등록번호", value: "231-15-02173" },
   { label: "통신판매업 신고번호", value: "2022-고양일산동-2720" },
   { label: "주소", value: "경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동, 아트다운)" },
-  { label: "이메일", value: "youngsaju@gmail.com" },
+  { label: "이메일", value: "yeongsaju@gmail.com" },
   { label: "전화", value: "010-2889-0744" },
 ];
 

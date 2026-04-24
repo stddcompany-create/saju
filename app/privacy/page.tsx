@@ -291,7 +291,7 @@ const articles: Article[] = [
         </li>
         <li>
           위 권리 행사는 서비스 내 고객센터 또는 회사
-          이메일(youngsaju@gmail.com)을 통해 서면, 전자우편 등으로 하실 수
+          이메일(yeongsaju@gmail.com)을 통해 서면, 전자우편 등으로 하실 수
           있으며, 회사는 이에 대해 지체 없이 조치하겠습니다.
         </li>
         <li>
@@ -410,7 +410,7 @@ const articles: Article[] = [
           <dt className="font-medium text-gray-900">연락처</dt>
           <dd>010-2889-0744</dd>
           <dt className="font-medium text-gray-900">이메일</dt>
-          <dd>youngsaju@gmail.com</dd>
+          <dd>yeongsaju@gmail.com</dd>
         </dl>
       </>
     ),

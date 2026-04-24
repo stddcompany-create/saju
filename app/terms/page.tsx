@@ -210,7 +210,7 @@ const articles: Article[] = [
           사정에 따라 환불 완료까지 추가 시일이 소요될 수 있습니다.
         </li>
         <li>
-          환불 요청은 서비스 내 고객센터 또는 회사의 이메일(youngsaju@gmail.com)로
+          환불 요청은 서비스 내 고객센터 또는 회사의 이메일(yeongsaju@gmail.com)로
           접수할 수 있습니다.
         </li>
       </ol>
@@ -417,7 +417,7 @@ const articles: Article[] = [
           <dt className="font-medium text-gray-900">주소</dt>
           <dd>경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동, 아트다운)</dd>
           <dt className="font-medium text-gray-900">이메일</dt>
-          <dd>youngsaju@gmail.com</dd>
+          <dd>yeongsaju@gmail.com</dd>
           <dt className="font-medium text-gray-900">전화</dt>
           <dd>010-2889-0744</dd>
         </dl>
