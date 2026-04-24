@@ -1,17 +1,19 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "이용약관 - 영사주",
-  description: "영사주 사주풀이 서비스 이용약관",
+  title: "이용약관 | 영사주",
+  description: "영사주 서비스 이용약관입니다.",
 };
 
 interface Article {
+  id: string;
   title: string;
   body: React.ReactNode;
 }
 
 const articles: Article[] = [
   {
+    id: "article-1",
     title: "제1조 (목적)",
     body: (
       <p>
@@ -23,6 +25,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-2",
     title: "제2조 (용어의 정의)",
     body: (
       <>
@@ -47,6 +50,17 @@ const articles: Article[] = [
             의미합니다.
           </li>
           <li>
+            <strong>&quot;PDF 콘텐츠&quot;</strong>란 회사가 유료 서비스의
+            결과물(사주 분석 결과 등)을 PDF 파일 형식으로 생성하여 회원이
+            다운로드할 수 있도록 제공하는 디지털 콘텐츠를 의미합니다.
+          </li>
+          <li>
+            <strong>&quot;이용 개시&quot;</strong>란 회원이 결제한 PDF 콘텐츠의
+            다운로드 링크를 통해 해당 PDF 파일을 최초로 다운로드하거나 열람한
+            시점을 말하며, 이 시점부터 디지털 콘텐츠의 제공이 완료된 것으로
+            간주됩니다.
+          </li>
+          <li>
             <strong>&quot;쿠폰&quot;</strong>이란 회사가 회원에게 지급하는 서비스
             이용 할인권 또는 무료 이용권을 말합니다.
           </li>
@@ -55,6 +69,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-3",
     title: "제3조 (약관의 효력 및 개정)",
     body: (
       <ol className="list-decimal space-y-1 pl-5">
@@ -80,6 +95,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-4",
     title: "제4조 (이용계약의 체결)",
     body: (
       <ol className="list-decimal space-y-2 pl-5">
@@ -102,6 +118,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-5",
     title: "제5조 (회원 정보의 관리)",
     body: (
       <ol className="list-decimal space-y-1 pl-5">
@@ -121,18 +138,33 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-6",
     title: "제6조 (서비스의 제공)",
     body: (
       <ol className="list-decimal space-y-2 pl-5">
         <li>
           회사는 회원에게 다음과 같은 서비스를 제공합니다.
           <ul className="mt-1 list-disc space-y-1 pl-5">
-            <li>개인 맞춤형 사주 분석 서비스</li>
+            <li>
+              개인 맞춤형 사주 분석 서비스 (결과물은 PDF 파일 형태로 제공됩니다)
+            </li>
             <li>오늘의 운세 및 일일 운세 콘텐츠 제공</li>
             <li>
               기타 회사가 추가 개발하거나 제휴를 통해 제공하는 운세 관련 서비스
             </li>
           </ul>
+        </li>
+        <li>
+          유료 사주 분석 서비스의 경우, 회원의 결제가 완료되면 회사는 회원
+          정보(생년월일, 출생시간 등)를 바탕으로 PDF 콘텐츠를 생성하여 서비스 내
+          마이페이지 또는 회원이 등록한 이메일 등을 통해 다운로드할 수 있도록
+          제공합니다.
+        </li>
+        <li>
+          회사는 회원의 편의를 위하여 PDF 콘텐츠 생성일로부터 7일 이내에는 횟수
+          제한 없이 재다운로드가 가능하도록 하며, 7일 경과 후에는 재다운로드가
+          제한될 수 있습니다. 단, 회사의 기술적 결함으로 다운로드가 정상적으로
+          이루어지지 않은 경우에는 고객센터 문의를 통해 재발급이 가능합니다.
         </li>
         <li>
           서비스는 연중무휴, 1일 24시간 제공함을 원칙으로 합니다. 다만, 시스템
@@ -146,9 +178,10 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-7",
     title: "제7조 (유료 서비스 및 결제)",
     body: (
-      <ol className="list-decimal space-y-1 pl-5">
+      <ol className="list-decimal space-y-2 pl-5">
         <li>
           회사는 일부 서비스를 유료로 제공할 수 있으며, 이용 요금은 서비스 화면에
           표시됩니다.
@@ -158,8 +191,18 @@ const articles: Article[] = [
           통해 이루어집니다.
         </li>
         <li>
-          회원은 결제 전 유료 서비스의 내용, 이용 기간, 이용 요금을 확인할 책임이
-          있습니다.
+          회원은 결제 전 유료 서비스의 내용, 제공 방식(PDF 다운로드), 이용 요금을
+          확인할 책임이 있습니다.
+        </li>
+        <li>
+          유료 사주 분석 서비스의 제공 절차는 다음과 같습니다.
+          <ol className="mt-1 list-decimal space-y-1 pl-5">
+            <li>회원의 생년월일·출생시간 등 필수정보 입력</li>
+            <li>결제 진행 및 결제 완료</li>
+            <li>회사가 PDF 콘텐츠를 생성 (통상 수 분 이내)</li>
+            <li>회원에게 PDF 다운로드 링크 제공</li>
+            <li>회원의 PDF 다운로드 = &quot;이용 개시&quot; = 콘텐츠 제공 완료</li>
+          </ol>
         </li>
         <li>
           미성년자가 유료 서비스를 결제하는 경우 법정대리인의 동의를 얻어야
@@ -170,53 +213,227 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-8",
     title: "제8조 (청약철회 및 환불)",
     body: (
-      <ol className="list-decimal space-y-2 pl-5">
-        <li>
-          유료 서비스를 결제한 회원은 「전자상거래 등에서의 소비자보호에 관한
-          법률」에 따라 결제일로부터 7일 이내에 청약철회를 할 수 있습니다.
-        </li>
-        <li>
-          다만, 다음 각 호의 경우에는 청약철회가 제한됩니다.
-          <ul className="mt-1 list-disc space-y-1 pl-5">
+      <div className="space-y-4">
+        <section>
+          <h3 className="mb-1 font-semibold text-gray-900">
+            ① 청약철회 가능 기간
+          </h3>
+          <p>
+            유료 서비스를 결제한 회원은 「전자상거래 등에서의 소비자보호에 관한
+            법률」 제17조 제1항에 따라 결제일로부터 7일 이내에 청약철회를 할 수
+            있습니다. 단, 아래 ②의 청약철회 제한 사유에 해당하지 않는 경우에
+            한합니다.
+          </p>
+        </section>
+
+        <section>
+          <h3 className="mb-1 font-semibold text-gray-900">
+            ② 청약철회 제한 사유
+          </h3>
+          <p>
+            「전자상거래 등에서의 소비자보호에 관한 법률」 제17조 제2항 및 관련
+            법령에 따라, 다음 각 호의 경우에는 청약철회가 제한됩니다.
+          </p>
+          <ol className="mt-2 list-decimal space-y-1 pl-5">
             <li>
-              이미 사주 분석 결과가 제공된 경우 등 디지털 콘텐츠의 이용이 개시된
+              구매 즉시 사용이 시작되거나 서비스에 즉시 적용되는 디지털 콘텐츠
+              (「전자상거래법」 제17조 제2항 제5호에 해당)
+            </li>
+            <li>
+              회원이 PDF 콘텐츠를 다운로드하여 &quot;이용 개시&quot;가 이루어진
               경우
             </li>
-            <li>맞춤형으로 생성된 콘텐츠로서 재판매가 곤란한 경우</li>
-            <li>기타 관련 법령에서 정한 사유에 해당하는 경우</li>
-          </ul>
-        </li>
-        <li>
-          환불 기준은 다음과 같습니다.
+            <li>회원이 이미 사주 분석 결과 등 서비스 내용을 확인한 경우</li>
+            <li>
+              회원의 개인정보(생년월일·출생시간 등)에 기반하여 맞춤형으로 생성된
+              PDF 콘텐츠로서 재판매가 곤란한 경우 (「전자상거래법」 제17조 제2항
+              제2호)
+            </li>
+            <li>
+              기타 「전자상거래법」 제17조 제2항 및 관련 법령에서 정한 청약철회
+              제한 사유에 해당하는 경우
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="mb-2 font-semibold text-gray-900">
+            ③ 상품별 환불 기준표
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="min-w-full border-collapse text-xs">
+              <thead>
+                <tr className="bg-gray-50 text-left text-gray-700">
+                  <th className="whitespace-nowrap border border-gray-200 px-3 py-2 font-semibold">
+                    상품 유형
+                  </th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">
+                    환불 가능 조건
+                  </th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">
+                    환불 불가 조건
+                  </th>
+                  <th className="border border-gray-200 px-3 py-2 font-semibold">
+                    환불율
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                    유료 사주 분석 (PDF)
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    결제 후 PDF 미다운로드 상태에서 7일 이내 환불 요청
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    PDF를 1회 이상 다운로드한 경우
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    미다운로드 시 100% 환불 / 다운로드 시 0% (환불 불가)
+                  </td>
+                </tr>
+                <tr className="bg-gray-50/50">
+                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                    쿠폰으로 이용한 서비스
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    환불 대상 아님
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    -
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    -
+                  </td>
+                </tr>
+                <tr>
+                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                    회사 귀책사유로 PDF 미제공
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    결제 완료 후 24시간 내 PDF가 생성되지 않은 경우
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    -
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    100% 환불
+                  </td>
+                </tr>
+                <tr className="bg-gray-50/50">
+                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                    기술적 장애로 다운로드 실패
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    회사가 재발급 불가 판정한 경우
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    재발급이 가능한 경우
+                  </td>
+                  <td className="border border-gray-200 px-3 py-2 align-top">
+                    재발급 불가 시 100% 환불
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section>
+          <h3 className="mb-1 font-semibold text-gray-900">④ 환불 신청 방법</h3>
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>서비스 내 [고객센터 &gt; 1:1 문의]로 신청</li>
+            <li>
+              이메일:{" "}
+              <a
+                href="mailto:yeongsaju@gmail.com"
+                className="text-blue-600 hover:underline"
+              >
+                yeongsaju@gmail.com
+              </a>
+            </li>
+            <li>전화: 010-2889-0744 (평일 10:00 – 18:00, 주말·공휴일 제외)</li>
+          </ol>
+          <p className="mt-2">환불 요청 시 아래 정보를 함께 제공해주셔야 합니다.</p>
           <ul className="mt-1 list-disc space-y-1 pl-5">
-            <li>
-              <strong>이용 개시 전</strong>: 결제금액 전액 환불
-            </li>
-            <li>
-              <strong>이용 개시 후</strong>: 원칙적으로 환불 불가(단, 회사의
-              귀책사유로 서비스 이용이 불가능한 경우 전액 환불)
-            </li>
-            <li>
-              <strong>회사의 귀책사유로 인한 서비스 장애</strong>: 장애 기간에
-              비례하여 환불
-            </li>
+            <li>결제자명, 결제일시, 결제수단, 결제금액</li>
+            <li>환불 요청 사유</li>
           </ul>
-        </li>
-        <li>
-          환불은 회원이 결제한 수단과 동일한 방법으로 처리되며, 결제 취소 또는
-          환불 요청일로부터 영업일 기준 3~7일 이내에 처리됩니다. 결제 수단사의
-          사정에 따라 환불 완료까지 추가 시일이 소요될 수 있습니다.
-        </li>
-        <li>
-          환불 요청은 서비스 내 고객센터 또는 회사의 이메일(yeongsaju@gmail.com)로
-          접수할 수 있습니다.
-        </li>
-      </ol>
+        </section>
+
+        <section>
+          <h3 className="mb-1 font-semibold text-gray-900">
+            ⑤ 환불 처리 기간 및 방법
+          </h3>
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>
+              회사는 회원의 환불 요청 접수 후 영업일 기준 3일 이내에 환불 가능
+              여부를 검토하여 회신합니다.
+            </li>
+            <li>
+              환불이 승인된 경우, 회사는 접수일로부터 영업일 기준 3~7일 이내에
+              환불을 진행합니다.
+            </li>
+            <li>
+              환불은 회원이 결제한 수단과 동일한 방법으로 처리됩니다.
+              <ul className="mt-1 list-disc space-y-1 pl-5">
+                <li>
+                  신용카드 결제: 카드사 승인 취소 (카드사 정책에 따라 승인 취소까지
+                  3~5 영업일, 대금 청구 전 취소 시 청구서에 미반영될 수 있음)
+                </li>
+                <li>
+                  간편결제(카카오페이·네이버페이·토스페이 등): 각 결제사 정책에
+                  따라 즉시 ~ 5 영업일 내 처리
+                </li>
+                <li>계좌이체: 회원이 지정한 본인 명의 계좌로 환불 (영업일 기준 3~7일)</li>
+              </ul>
+            </li>
+            <li>
+              결제 수단사의 사정에 따라 환불 완료까지 추가 시일이 소요될 수
+              있으며, 이로 인한 지연은 회사의 책임이 아닙니다.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="mb-1 font-semibold text-gray-900">
+            ⑥ 회사 귀책사유로 인한 환불
+          </h3>
+          <ol className="list-decimal space-y-1 pl-5">
+            <li>
+              회사의 시스템 오류, 서비스 중단, 기술적 문제 등 회사의 귀책사유로
+              인하여 회원이 구매한 PDF 콘텐츠를 정상적으로 제공받지 못한 경우,
+              회원은 결제금액 전액의 환불을 요청할 수 있습니다.
+            </li>
+            <li>
+              이 경우 회사는 회원의 요청 접수일로부터 영업일 기준 3일 이내 환불을
+              진행하며, 환불에 소요되는 모든 비용은 회사가 부담합니다.
+            </li>
+            <li>
+              회사가 이미 결제된 서비스를 기술적인 문제 등의 사유로 제공할 수
+              없을 때에는, 그 사유를 회원에게 통지하고 신속하게 결제를 취소하거나
+              환불을 진행합니다.
+            </li>
+          </ol>
+        </section>
+
+        <section>
+          <h3 className="mb-1 font-semibold text-gray-900">⑦ 부분 환불</h3>
+          <p>
+            PDF 콘텐츠는 단일 상품으로 제공되므로 부분 환불은 원칙적으로 적용되지
+            않습니다. 다만, 회사가 별도의 패키지 상품을 제공하는 경우 해당 상품의
+            환불 규정은 상품 상세 페이지에 별도 고지합니다.
+          </p>
+        </section>
+      </div>
     ),
   },
   {
+    id: "article-9",
     title: "제9조 (쿠폰 정책)",
     body: (
       <ol className="list-decimal space-y-1 pl-5">
@@ -240,6 +457,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-10",
     title: "제10조 (서비스의 변경 및 중단)",
     body: (
       <ol className="list-decimal space-y-2 pl-5">
@@ -269,6 +487,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-11",
     title: "제11조 (회원 탈퇴 및 자격 상실)",
     body: (
       <ol className="list-decimal space-y-2 pl-5">
@@ -295,6 +514,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-12",
     title: "제12조 (이용자의 의무)",
     body: (
       <>
@@ -318,6 +538,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-13",
     title: "제13조 (지적재산권)",
     body: (
       <ol className="list-decimal space-y-1 pl-5">
@@ -338,6 +559,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-14",
     title: "제14조 (면책조항)",
     body: (
       <ol className="list-decimal space-y-2 pl-5">
@@ -353,6 +575,12 @@ const articles: Article[] = [
         <li>
           회사는 서비스 결과의 정확성, 신뢰성, 특정 목적에의 적합성을 보증하지
           않으며, 이용자가 서비스 결과를 활용하여 발생한 직접·간접적 손해에 대해
+          책임을 지지 않습니다.
+        </li>
+        <li>
+          회원이 다운로드한 PDF 콘텐츠의 보관·관리 책임은 회원 본인에게 있으며,
+          다운로드 후 회원의 기기 문제(파일 삭제, 저장매체 손상 등)로 인한 파일
+          분실에 대하여 회사는 제6조 제3항에서 정한 재다운로드 기간 경과 후에는
           책임을 지지 않습니다.
         </li>
         <li>
@@ -375,6 +603,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-15",
     title: "제15조 (개인정보보호)",
     body: (
       <p>
@@ -385,6 +614,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-16",
     title: "제16조 (분쟁해결 및 관할법원)",
     body: (
       <ol className="list-decimal space-y-1 pl-5">
@@ -401,6 +631,7 @@ const articles: Article[] = [
     ),
   },
   {
+    id: "article-17",
     title: "제17조 (고객센터 및 문의)",
     body: (
       <>
@@ -417,9 +648,20 @@ const articles: Article[] = [
           <dt className="font-medium text-gray-900">주소</dt>
           <dd>경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동, 아트다운)</dd>
           <dt className="font-medium text-gray-900">이메일</dt>
-          <dd>yeongsaju@gmail.com</dd>
+          <dd>
+            <a
+              href="mailto:yeongsaju@gmail.com"
+              className="text-blue-600 hover:underline"
+            >
+              yeongsaju@gmail.com
+            </a>
+          </dd>
           <dt className="font-medium text-gray-900">전화</dt>
-          <dd>010-2889-0744</dd>
+          <dd>
+            <a href="tel:01028890744" className="hover:underline">
+              010-2889-0744
+            </a>
+          </dd>
         </dl>
       </>
     ),
@@ -428,17 +670,22 @@ const articles: Article[] = [
 
 export default function TermsPage() {
   return (
-    <main className="flex-1 px-4 py-8">
+    <main className="mx-auto flex-1 px-4 py-8 md:max-w-3xl">
       <header className="mb-6 border-b border-gray-200 pb-4">
-        <h1 className="text-3xl font-bold text-gray-900">이용약관</h1>
-        <p className="mt-2 text-sm text-gray-500">시행일자: 2026년 4월 18일</p>
+        <h1 className="text-3xl font-bold text-gray-900">
+          영사주 서비스 이용약관
+        </h1>
+        <p className="mt-2 text-sm text-gray-500">
+          시행일: 2026년 4월 24일 · 최종 업데이트: 2026년 4월 24일
+        </p>
       </header>
 
       <section className="space-y-6 text-sm leading-relaxed text-gray-700">
         {articles.map((article) => (
           <article
-            key={article.title}
-            className="rounded-lg border border-gray-200 bg-white p-4"
+            key={article.id}
+            id={article.id}
+            className="scroll-mt-24 rounded-lg border border-gray-200 bg-white p-4"
           >
             <h2 className="mb-2 text-base font-bold text-red-500">
               {article.title}
@@ -449,7 +696,7 @@ export default function TermsPage() {
 
         <div className="rounded-lg bg-yellow-50 px-4 py-3 text-xs text-gray-500">
           <p className="font-medium text-gray-700">부칙</p>
-          <p className="mt-1">본 약관은 2026년 4월 18일부터 시행됩니다.</p>
+          <p className="mt-1">이 약관은 2026년 4월 24일부터 시행합니다.</p>
         </div>
       </section>
     </main>
