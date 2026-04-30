@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 
 const years = Array.from({ length: 100 }, (_, i) => 2026 - i);
 const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -12,6 +13,15 @@ const minutes = Array.from({ length: 60 }, (_, i) => i);
 interface SajuFormProps {
   productId: string;
   price: number;
+}
+
+interface OrderResponse {
+  ok: true;
+  orderId: string;
+  orderName: string;
+  amount: number;
+  customerName: string;
+  customerEmail: string;
 }
 
 export default function SajuForm({ productId, price }: SajuFormProps) {
@@ -50,9 +60,17 @@ export default function SajuForm({ productId, price }: SajuFormProps) {
       return;
     }
 
+    const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
+    if (!clientKey) {
+      alert("결제 시스템 설정 오류입니다. 관리자에게 문의해주세요.");
+      console.error("NEXT_PUBLIC_TOSS_CLIENT_KEY is not set");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
+      // 1. 주문 생성 (DB에 pending 상태로 저장)
       const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -77,14 +95,42 @@ export default function SajuForm({ productId, price }: SajuFormProps) {
           error?: string;
         } | null;
         alert(data?.error ?? "주문 중 오류가 발생했습니다. 다시 시도해주세요.");
+        setIsSubmitting(false);
         return;
       }
 
-      alert("주문이 완료되었습니다! 결제 기능은 추후 연동 예정입니다.");
+      const order = (await res.json()) as OrderResponse;
+
+      // 2. 토스페이먼츠 결제창 호출
+      const tossPayments = await loadTossPayments(clientKey);
+      const payment = tossPayments.payment({ customerKey: ANONYMOUS });
+
+      await payment.requestPayment({
+        method: "CARD",
+        amount: { currency: "KRW", value: order.amount },
+        orderId: order.orderId,
+        orderName: order.orderName,
+        customerName: order.customerName,
+        customerEmail: order.customerEmail,
+        successUrl: `${window.location.origin}/payment/success`,
+        failUrl: `${window.location.origin}/payment/fail`,
+        card: {
+          useEscrow: false,
+          flowMode: "DEFAULT",
+          useCardPoint: false,
+          useAppCardOnly: false,
+        },
+      });
+      // requestPayment는 페이지를 이동시키므로 이후 코드는 실행되지 않음
     } catch (err) {
-      alert("주문 중 오류가 발생했습니다. 다시 시도해주세요.");
-      console.error("Order error:", err);
-    } finally {
+      // 결제창 닫힘 등 사용자 취소/오류
+      console.error("Payment error:", err);
+      const errorObj = err as { code?: string; message?: string };
+      if (errorObj?.code === "USER_CANCEL") {
+        // 사용자가 결제창을 닫은 경우 - 알림 없이 폼 유지
+      } else {
+        alert(errorObj?.message ?? "결제 진행 중 오류가 발생했습니다.");
+      }
       setIsSubmitting(false);
     }
   }

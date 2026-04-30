@@ -72,6 +72,13 @@ export async function POST(request: Request) {
     );
   }
 
+  if (product.price <= 0) {
+    return NextResponse.json(
+      { error: "결제할 수 없는 상품입니다." },
+      { status: 400 },
+    );
+  }
+
   const trimmedName = typeof name === "string" ? name.trim() : "";
   const trimmedEmail = typeof email === "string" ? email.trim() : "";
 
@@ -122,22 +129,27 @@ export async function POST(request: Request) {
   }
 
   const supabase = createAdminClient();
-  const { error } = await supabase.from("orders").insert({
-    product_id: product.id,
-    product_name: product.name,
-    price: product.price,
-    email: trimmedEmail,
-    name: trimmedName,
-    calendar_type: calendarType,
-    birth_year: birthYear,
-    birth_month: birthMonth,
-    birth_day: birthDay,
-    birth_hour: birthHour,
-    birth_minute: birthMinute,
-    gender,
-  });
+  const { data: order, error } = await supabase
+    .from("orders")
+    .insert({
+      product_id: product.id,
+      product_name: product.name,
+      price: product.price,
+      email: trimmedEmail,
+      name: trimmedName,
+      calendar_type: calendarType,
+      birth_year: birthYear,
+      birth_month: birthMonth,
+      birth_day: birthDay,
+      birth_hour: birthHour,
+      birth_minute: birthMinute,
+      gender,
+      status: "pending",
+    })
+    .select("id")
+    .single();
 
-  if (error) {
+  if (error || !order) {
     console.error("Order insert error:", error);
     return NextResponse.json(
       { error: "주문 중 오류가 발생했습니다." },
@@ -145,5 +157,12 @@ export async function POST(request: Request) {
     );
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({
+    ok: true,
+    orderId: order.id,
+    orderName: product.name,
+    amount: product.price,
+    customerName: trimmedName,
+    customerEmail: trimmedEmail,
+  });
 }
