@@ -1,7 +1,23 @@
 import Link from "next/link";
-import ProductHeader from "@/components/ProductHeader";
+import { notFound } from "next/navigation";
+import { getProductByCategory, products } from "@/lib/products";
 
-export default function GreetingPage() {
+export function generateStaticParams() {
+  return products.map((p) => ({ category: p.id }));
+}
+
+export default async function CategoryGreetingPage({
+  params,
+}: {
+  params: Promise<{ category: string }>;
+}) {
+  const { category } = await params;
+  const product = getProductByCategory(category);
+
+  if (!product) {
+    notFound();
+  }
+
   return (
     <main className="flex-1">
       <section
@@ -14,9 +30,6 @@ export default function GreetingPage() {
       >
         {/* 어두운 오버레이 */}
         <div className="absolute inset-0 bg-black/40" />
-
-        {/* 상단 로고 + 로그인 */}
-        <ProductHeader />
 
         {/* 말풍선 영역 */}
         <div className="relative z-10 mt-20 space-y-3 px-6">
@@ -39,16 +52,16 @@ export default function GreetingPage() {
         {/* 하단 버튼 (이전 / 다음) */}
         <div className="relative z-10 flex gap-3 px-4 pb-6">
           <Link
-            href="/test"
-            className="shrink-0 rounded-lg border border-white/80 bg-white/10 px-6 py-4 text-center text-base font-bold text-white backdrop-blur-sm transition hover:bg-white/20"
+            href={`/${category}`}
+            className="shrink-0 rounded-lg bg-white/10 px-6 py-4 text-center text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/20"
           >
             이전
           </Link>
           <Link
-            href="/test/input"
-            className="flex-1 rounded-lg bg-[#FF6F0F] py-4 text-center text-base font-bold text-white transition hover:bg-[#E65F00]"
+            href={`/${category}/input`}
+            className="flex-1 rounded-lg bg-[#FF6F0F] py-4 text-center text-sm font-bold text-white transition hover:bg-[#E65F00]"
           >
-            좋아, 내 이름은..
+            좋아, 내 이름은...
           </Link>
         </div>
       </section>

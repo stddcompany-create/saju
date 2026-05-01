@@ -1,13 +1,12 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { getProductByCategory, products } from "@/lib/products";
-import SajuForm from "@/components/SajuForm";
 
 export function generateStaticParams() {
   return products.map((p) => ({ category: p.id }));
 }
 
-export default async function CategoryPage({
+export default async function CategoryHeroPage({
   params,
 }: {
   params: Promise<{ category: string }>;
@@ -20,55 +19,59 @@ export default async function CategoryPage({
   }
 
   return (
-    <main className="flex-1 px-4 py-6">
-      {/* 상품 정보 */}
-      <div className="flex items-center gap-4">
-        <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-lg">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            className="object-cover"
-          />
-        </div>
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">{product.name}</h1>
-          <p className="mt-1 text-sm text-gray-500">{product.description}</p>
-          <div className="mt-2 flex items-baseline gap-2">
-            <span className="text-xl font-bold text-gray-900">
-              {product.price.toLocaleString()}원
+    <main className="flex-1">
+      {/* 풀스크린 히어로 */}
+      <section
+        className="relative flex h-svh flex-col overflow-hidden"
+        style={{
+          backgroundImage: "url('/images/test-main-webtoon.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* 어두운 오버레이 */}
+        <div className="absolute inset-0 bg-black/65" />
+
+        {/* 중앙 타이틀 */}
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center">
+          <h1
+            className="text-[30px] font-extrabold leading-normal tracking-[0.02em] text-white"
+            style={{
+              textShadow:
+                "0 2px 4px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.8), 0 0 30px rgba(0,0,0,0.5)",
+            }}
+          >
+            <span
+              className="text-[#FF6F0F]"
+              style={{
+                textShadow:
+                  "0 2px 4px rgba(0,0,0,0.95), 0 4px 12px rgba(0,0,0,0.85), 0 0 20px rgba(255,111,15,0.4)",
+              }}
+            >
+              3평 철학관 10년
             </span>
-            <span className="text-sm text-gray-400 line-through">
-              {product.originalPrice.toLocaleString()}원
-            </span>
-          </div>
+            <br />
+            지인소개로만
+            <br />
+            사주를 봐왔습니다
+          </h1>
+          <p className="mt-6 text-[13px] leading-relaxed text-gray-200 drop-shadow">
+            냉정하고 직설적인 사주 분석으로
+            <br />
+            인생의 나침반이 되어드립니다
+          </p>
         </div>
-      </div>
 
-      {/* 운세 소개 */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold text-red-500">운세 소개</h2>
-        <div className="mt-3 space-y-1 text-sm text-gray-700">
-          {product.intro.map((line, i) => (
-            <p key={i}>{line}</p>
-          ))}
+        {/* 하단 CTA 버튼 */}
+        <div className="relative z-10 px-4 pb-6">
+          <Link
+            href={`/${category}/greeting`}
+            className="block w-full rounded-lg bg-[#E65F00] py-4 text-center text-base font-bold text-white transition hover:bg-[#ff610f]"
+          >
+            내 사주팔자 바로 확인하기
+          </Link>
         </div>
-      </div>
-
-      {/* 사주 정보 입력 + 동의 + 결제 */}
-      <div className="mt-8">
-        <SajuForm productId={product.id} price={product.price} />
-      </div>
-
-      {/* 운세 구성 */}
-      <div className="mt-8">
-        <h2 className="text-lg font-bold text-red-500">운세 구성</h2>
-        <ul className="mt-3 space-y-1 text-sm text-gray-700">
-          {product.sections.map((section, i) => (
-            <li key={i}>· {section}</li>
-          ))}
-        </ul>
-      </div>
+      </section>
     </main>
   );
 }

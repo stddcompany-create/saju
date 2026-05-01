@@ -15,18 +15,6 @@ export interface Product {
 
 export const products: Product[] = [
   {
-    id: "test",
-    name: "🧪 테스트 상품",
-    description: "신규 디자인 테스트 플로우",
-    image: "/images/jonghap.svg",
-    href: "/test",
-    price: 0,
-    originalPrice: 0,
-    category: "종합",
-    intro: ["테스트 페이지입니다."],
-    sections: ["테스트 흐름 확인"],
-  },
-  {
     id: "jonghap",
     name: "평생사주",
     description: "타고난 운명과 인생 전반의 총운 분석",

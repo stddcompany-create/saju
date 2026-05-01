@@ -14,16 +14,20 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex flex-1 flex-col items-center justify-center px-4">
+    <main className="flex flex-1 flex-col items-center justify-center bg-[#1a1a1a] px-6 pb-10 min-h-screen">
       <div className="w-full max-w-sm text-center">
-        <h1 className="text-2xl font-extrabold text-gray-900">로그인</h1>
-        <p className="mt-2 text-sm text-gray-500">
+        <h1 className="text-2xl font-extrabold text-white">
+          영사주에 오신 것을
+          <br />
+          환영합니다
+        </h1>
+        <p className="mt-3 text-sm leading-relaxed text-[#a3a3a3]">
           카카오 계정으로 간편하게 시작하세요
         </p>
 
         <button
           onClick={handleKakaoLogin}
-          className="mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[#FEE500] px-4 py-3 text-sm font-bold text-[#191919] transition hover:brightness-95"
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-[#FEE500] px-4 py-3.5 text-sm font-bold text-[#191919] transition hover:brightness-95"
         >
           <svg
             width="18"
@@ -41,6 +45,19 @@ export default function LoginPage() {
           </svg>
           카카오 로그인
         </button>
+
+        <p className="mt-6 text-xs text-[#6b6b6b]">
+          로그인하면{" "}
+          <a href="/terms" className="text-[#a3a3a3] hover:text-white">
+            이용약관
+          </a>
+          {" 및 "}
+          <a href="/privacy" className="text-[#a3a3a3] hover:text-white">
+            개인정보처리방침
+          </a>
+          에<br />
+          동의하는 것으로 간주됩니다.
+        </p>
       </div>
     </main>
   );

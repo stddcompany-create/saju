@@ -17,9 +17,7 @@ const articles: Article[] = [
     title: "제1조 (개인정보의 수집 항목 및 목적)",
     body: (
       <>
-        <p>
-          회사는 서비스 제공을 위해 아래와 같이 개인정보를 수집·이용합니다.
-        </p>
+        <p>회사는 서비스 제공을 위해 아래와 같이 개인정보를 수집·이용합니다.</p>
 
         {/* 모바일: 카드 / 데스크탑: 테이블 */}
         <div className="mt-3 space-y-2 sm:hidden">
@@ -42,41 +40,43 @@ const articles: Article[] = [
           ].map((row, idx) => (
             <div
               key={idx}
-              className="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs"
+              className="rounded-md border border-[#2e2e2e] bg-[#1a1a1a] p-3 text-xs"
             >
-              <p className="font-medium text-gray-900">[{row.type}]</p>
+              <p className="font-medium text-white">[{row.type}]</p>
               <p className="mt-1">
-                <span className="text-gray-500">수집 항목:</span> {row.items}
+                <span className="text-[#6b6b6b]">수집 항목:</span> {row.items}
               </p>
               <p className="mt-0.5">
-                <span className="text-gray-500">이용 목적:</span> {row.purpose}
+                <span className="text-[#6b6b6b]">이용 목적:</span> {row.purpose}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-3 hidden overflow-hidden rounded-md border border-gray-200 sm:block">
+        <div className="mt-3 hidden overflow-hidden rounded-md border border-[#2e2e2e] sm:block">
           <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50 text-gray-700">
+            <thead className="bg-[#1a1a1a] text-[#a3a3a3]">
               <tr>
                 <th className="w-20 px-3 py-2 font-medium">구분</th>
                 <th className="px-3 py-2 font-medium">수집 항목</th>
                 <th className="px-3 py-2 font-medium">이용 목적</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-[#2e2e2e]">
               <tr>
-                <td className="px-3 py-2 font-medium">필수</td>
+                <td className="px-3 py-2 font-medium text-white">필수</td>
                 <td className="px-3 py-2">이름, 생년월일, 성별, 출생시간</td>
-                <td className="px-3 py-2">콘텐츠 자동 생성, 개인화 리포트 작성</td>
+                <td className="px-3 py-2">
+                  콘텐츠 자동 생성, 개인화 리포트 작성
+                </td>
               </tr>
               <tr>
-                <td className="px-3 py-2 font-medium">필수</td>
+                <td className="px-3 py-2 font-medium text-white">필수</td>
                 <td className="px-3 py-2">결제 정보(카드사, 승인번호 등)</td>
                 <td className="px-3 py-2">결제 처리, 정산, 분쟁 대응</td>
               </tr>
               <tr>
-                <td className="px-3 py-2 font-medium">자동 수집</td>
+                <td className="px-3 py-2 font-medium text-white">자동 수집</td>
                 <td className="px-3 py-2">IP, 접속로그, 브라우저 정보</td>
                 <td className="px-3 py-2">부정 이용 방지, 서비스 개선</td>
               </tr>
@@ -106,8 +106,13 @@ const articles: Article[] = [
         </ul>
         <p className="mt-3">관계 법령에 따라 일정 기간 보관되는 항목</p>
         <ul className="mt-1 list-disc space-y-1 pl-5">
-          <li>결제/거래 기록: 5년 (전자상거래 등에서의 소비자보호에 관한 법률)</li>
-          <li>소비자 분쟁 대응 기록: 3년 (전자상거래 등에서의 소비자보호에 관한 법률)</li>
+          <li>
+            결제/거래 기록: 5년 (전자상거래 등에서의 소비자보호에 관한 법률)
+          </li>
+          <li>
+            소비자 분쟁 대응 기록: 3년 (전자상거래 등에서의 소비자보호에 관한
+            법률)
+          </li>
           <li>접속 로그 및 이용 기록: 6개월 (통신비밀보호법)</li>
         </ul>
       </>
@@ -146,25 +151,25 @@ const articles: Article[] = [
           ].map((row) => (
             <div
               key={row.name}
-              className="rounded-md border border-gray-200 bg-gray-50 p-3 text-xs"
+              className="rounded-md border border-[#2e2e2e] bg-[#1a1a1a] p-3 text-xs"
             >
-              <p className="font-medium text-gray-900">{row.name}</p>
+              <p className="font-medium text-white">{row.name}</p>
               <p className="mt-1">
-                <span className="text-gray-500">위탁 업무:</span> {row.task}
+                <span className="text-[#6b6b6b]">위탁 업무:</span> {row.task}
               </p>
             </div>
           ))}
         </div>
 
-        <div className="mt-3 hidden overflow-hidden rounded-md border border-gray-200 sm:block">
+        <div className="mt-3 hidden overflow-hidden rounded-md border border-[#2e2e2e] sm:block">
           <table className="w-full text-left text-xs">
-            <thead className="bg-gray-50 text-gray-700">
+            <thead className="bg-[#1a1a1a] text-[#a3a3a3]">
               <tr>
                 <th className="px-3 py-2 font-medium">수탁업체</th>
                 <th className="px-3 py-2 font-medium">위탁 내용</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-[#2e2e2e]">
               <tr>
                 <td className="px-3 py-2">토스페이먼츠 주식회사</td>
                 <td className="px-3 py-2">결제 처리 및 정산</td>
@@ -219,13 +224,13 @@ const articles: Article[] = [
     title: "제7조 (개인정보 보호책임자)",
     body: (
       <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-        <dt className="font-medium text-gray-900">책임자</dt>
+        <dt className="font-medium text-white">책임자</dt>
         <dd>이재민</dd>
-        <dt className="font-medium text-gray-900">이메일</dt>
+        <dt className="font-medium text-white">이메일</dt>
         <dd>
           <a
             href="mailto:yeongsaju@gmail.com"
-            className="text-blue-600 hover:underline"
+            className="text-amber-300 hover:underline"
           >
             yeongsaju@gmail.com
           </a>
@@ -247,41 +252,47 @@ const articles: Article[] = [
 
 export default function PrivacyPage() {
   return (
-    <main className="mx-auto flex-1 px-4 py-8 md:max-w-3xl">
-      <header className="mb-6 border-b border-gray-200 pb-4">
-        <h1 className="text-3xl font-bold text-gray-900">개인정보처리방침</h1>
-        <p className="mt-2 text-sm text-gray-500">
-          시행일: 2026년 4월 24일 · 최종 업데이트: 2026년 4월 24일
-        </p>
-      </header>
-
-      <section className="space-y-6 text-sm leading-relaxed text-gray-700">
-        <article className="rounded-lg border border-gray-200 bg-white p-4">
-          <p>
-            그릿(이하 &quot;회사&quot;)은 「개인정보 보호법」 및 관련 법령을
-            준수하며, 이용자의 개인정보를 보호하고 이와 관련된 고충을 신속하고
-            원활하게 처리하기 위하여 본 개인정보처리방침을 수립·공개합니다.
+    <main className="flex-1 bg-[#1a1a1a]">
+      <div className="mx-auto px-4 pb-10 pt-20 md:max-w-2xl">
+        <header className="mb-8 border-b border-[#2e2e2e] pb-6 mx-4">
+          <h1 className="text-2xl font-extrabold text-white">
+            개인정보처리방침
+          </h1>
+          <p className="mt-2 text-sm text-[#a3a3a3]">
+            시행일: 2026년 4월 24일 · 최종 업데이트: 2026년 4월 24일
           </p>
-        </article>
+        </header>
 
-        {articles.map((article) => (
-          <article
-            key={article.id}
-            id={article.id}
-            className="scroll-mt-24 rounded-lg border border-gray-200 bg-white p-4"
-          >
-            <h2 className="mb-2 text-base font-bold text-red-500">
-              {article.title}
-            </h2>
-            <div className="space-y-2">{article.body}</div>
+        <section className="space-y-4 text-sm leading-relaxed text-[#a3a3a3]">
+          <article className="rounded bg-[#222222] p-5">
+            <p>
+              그릿(이하 &quot;회사&quot;)은 「개인정보 보호법」 및 관련 법령을
+              준수하며, 이용자의 개인정보를 보호하고 이와 관련된 고충을 신속하고
+              원활하게 처리하기 위하여 본 개인정보처리방침을 수립·공개합니다.
+            </p>
           </article>
-        ))}
 
-        <div className="rounded-lg bg-yellow-50 px-4 py-3 text-xs text-gray-500">
-          <p className="font-medium text-gray-700">시행일자</p>
-          <p className="mt-1">본 개인정보처리방침은 2026년 4월 24일부터 시행됩니다.</p>
-        </div>
-      </section>
+          {articles.map((article) => (
+            <article
+              key={article.id}
+              id={article.id}
+              className="scroll-mt-24 p-5"
+            >
+              <h2 className="mb-3 text-base font-bold text-white">
+                {article.title}
+              </h2>
+              <div className="space-y-2">{article.body}</div>
+            </article>
+          ))}
+
+          <div className="rounded bg-[#282828] px-5 py-4 text-xs text-[#a3a3a3]">
+            <p className="font-medium text-white">시행일자</p>
+            <p className="mt-1">
+              본 개인정보처리방침은 2026년 4월 24일부터 시행됩니다.
+            </p>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

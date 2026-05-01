@@ -1,20 +1,49 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { motion, AnimatePresence, type Variants } from "motion/react";
 import { createClient } from "@/lib/supabase/client";
 import type { User } from "@supabase/supabase-js";
 
-const HIDE_NAVBAR_PATHS = ["/jonghap", "/sinnyeon", "/test"];
+const containerVariants: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.07, delayChildren: 0.12 },
+  },
+  exit: {
+    transition: { staggerChildren: 0.04, staggerDirection: -1 },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+  exit: {
+    opacity: 0,
+    y: -12,
+    transition: { duration: 0.18, ease: "easeIn" },
+  },
+};
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-  const pathname = usePathname();
+  const [scrolled, setScrolled] = useState(false);
   const router = useRouter();
-  const isHome = pathname === "/";
   const supabase = createClient();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 8);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setUser(data.user));
@@ -47,95 +76,95 @@ export default function Navbar() {
 
   const closeMenu = () => setMenuOpen(false);
 
-  const shouldHide = HIDE_NAVBAR_PATHS.some((p) => pathname.startsWith(p));
-  if (shouldHide) return null;
+  const navClasses = `fixed left-0 right-0 top-0 z-50 mx-auto max-w-2xl transition-colors duration-200 ${
+    scrolled ? "bg-[#1a1a1a]/60 backdrop-blur-md rounded-2xl" : "bg-transparent"
+  }`;
 
   return (
-    <nav className="relative bg-white">
-      {/* 1줄: 사이트 이름 + 햄버거 */}
-      <div className="flex items-center justify-between px-4 py-3">
-        {isHome ? (
-          <Link href="/" className="text-xl font-bold text-gray-900">
+    <>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 z-40 mx-auto flex w-full max-w-2xl flex-col items-center justify-center bg-[#1a1a1a]/70 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+          >
+            <motion.div
+              className="flex flex-col items-center gap-7"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+            >
+              <motion.div variants={itemVariants}>
+                <Link
+                  href="/"
+                  className="text-2xl font-bold text-white transition-colors hover:text-white/75"
+                  onClick={closeMenu}
+                >
+                  홈
+                </Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <Link
+                  href="/jonghap"
+                  className="text-2xl font-bold text-white transition-colors hover:text-white/75"
+                  onClick={closeMenu}
+                >
+                  평생사주
+                </Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                <Link
+                  href="/sinnyeon"
+                  className="text-2xl font-bold text-white transition-colors hover:text-white/75"
+                  onClick={closeMenu}
+                >
+                  2026년 신년운세
+                </Link>
+              </motion.div>
+              <motion.div variants={itemVariants}>
+                {user ? (
+                  <button
+                    onClick={handleLogout}
+                    className="text-2xl font-bold text-white transition-colors hover:text-white/75"
+                  >
+                    로그아웃 ({user.user_metadata?.name || "사용자"})
+                  </button>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="text-2xl font-semibold text-amber-300 transition-colors hover:text-amber-200"
+                    onClick={closeMenu}
+                  >
+                    로그인
+                  </Link>
+                )}
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <nav className={navClasses}>
+        <div className="flex items-center justify-between px-4 py-3">
+          <Link
+            href="/"
+            className="text-xl font-bold text-white drop-shadow font-(family-name:--font-deogon)"
+          >
             영사주
           </Link>
-        ) : (
           <button
-            onClick={() => router.back()}
-            className="text-gray-700"
-            aria-label="뒤로가기"
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-2xl text-white drop-shadow focus:outline-none"
+            aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M19 12H5" />
-              <path d="M12 19l-7-7 7-7" />
-            </svg>
+            {menuOpen ? "×" : "☰"}
           </button>
-        )}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="text-2xl text-gray-700 focus:outline-none"
-          aria-label={menuOpen ? "메뉴 닫기" : "메뉴 열기"}
-        >
-          {menuOpen ? "×" : "☰"}
-        </button>
-      </div>
-
-      {/* 메뉴 영역만 오버레이 */}
-      {menuOpen && (
-        <div className="absolute left-0 right-0 top-full z-50 border border-gray-100 bg-white">
-          <div className="px-4 py-2">
-            <Link
-              href="/"
-              className="block py-3 text-gray-800 hover:text-gray-900"
-              onClick={closeMenu}
-            >
-              홈
-            </Link>
-            <Link
-              href="/jonghap"
-              className="block py-3 text-gray-800 hover:text-gray-900"
-              onClick={closeMenu}
-            >
-              평생사주
-            </Link>
-            <Link
-              href="/sinnyeon"
-              className="block py-3 text-gray-800 hover:text-gray-900"
-              onClick={closeMenu}
-            >
-              2026년 신년운세
-            </Link>
-
-            <hr className="my-2 border-gray-200" />
-
-            {user ? (
-              <button
-                onClick={handleLogout}
-                className="block w-full py-3 text-left text-gray-800 hover:text-gray-900"
-              >
-                로그아웃 ({user.user_metadata?.name || "사용자"})
-              </button>
-            ) : (
-              <Link
-                href="/login"
-                className="block py-3 font-semibold text-blue-600 hover:text-blue-800"
-                onClick={closeMenu}
-              >
-                로그인
-              </Link>
-            )}
-          </div>
         </div>
-      )}
-    </nav>
+      </nav>
+    </>
   );
 }

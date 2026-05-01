@@ -17,11 +17,10 @@ const articles: Article[] = [
     title: "제1조 (목적)",
     body: (
       <p>
-        이 약관은 그릿(이하 &quot;회사&quot;)이 운영하는 영사주
-        사이트(
+        이 약관은 그릿(이하 &quot;회사&quot;)이 운영하는 영사주 사이트(
         <a
           href="https://yeongsaju.com/"
-          className="text-blue-600 hover:underline"
+          className="text-amber-300 hover:underline"
         >
           https://yeongsaju.com/
         </a>
@@ -74,12 +73,14 @@ const articles: Article[] = [
     body: (
       <ol className="list-decimal space-y-1 pl-5">
         <li>
-          회사는 이용자가 입력한 정보를 바탕으로 개인화된 콘텐츠를 제작·제공하며,
-          해당 콘텐츠는 무형의 디지털 자산으로 물리적 배송은 없습니다.
+          회사는 이용자가 입력한 정보를 바탕으로 개인화된 콘텐츠를
+          제작·제공하며, 해당 콘텐츠는 무형의 디지털 자산으로 물리적 배송은
+          없습니다.
         </li>
         <li>
           콘텐츠는 일반적으로 결제 후 영업일 기준 1~2일 이내에 PDF 파일로
-          제공되며, 회사 사정 또는 주문 폭주 시 최대 7일 이내 제공될 수 있습니다.
+          제공되며, 회사 사정 또는 주문 폭주 시 최대 7일 이내 제공될 수
+          있습니다.
         </li>
         <li>
           회사는 이용자의 편의를 위하여 콘텐츠 제공일로부터 7일 이내에는 횟수
@@ -136,7 +137,7 @@ const articles: Article[] = [
     body: (
       <div className="space-y-4">
         <section>
-          <h3 className="mb-1 font-semibold text-gray-900">
+          <h3 className="mb-1 font-semibold text-white">
             ① 청약철회 가능 기간
           </h3>
           <p>
@@ -149,7 +150,7 @@ const articles: Article[] = [
         </section>
 
         <section>
-          <h3 className="mb-1 font-semibold text-gray-900">② 환불 가능 사유</h3>
+          <h3 className="mb-1 font-semibold text-white">② 환불 가능 사유</h3>
           <p>다음 각 호의 경우에 한하여 환불이 가능합니다.</p>
           <ul className="mt-1 list-disc space-y-1 pl-5">
             <li>결제일로부터 3영업일 이내 콘텐츠 제작이 시작되지 않은 경우</li>
@@ -171,7 +172,7 @@ const articles: Article[] = [
         </section>
 
         <section>
-          <h3 className="mb-1 font-semibold text-gray-900">③ 환불 불가 사유</h3>
+          <h3 className="mb-1 font-semibold text-white">③ 환불 불가 사유</h3>
           <p>다음 각 호에 해당하는 경우 환불은 불가합니다.</p>
           <ul className="mt-1 list-disc space-y-1 pl-5">
             <li>콘텐츠 열람 또는 다운로드 이후</li>
@@ -184,77 +185,77 @@ const articles: Article[] = [
         </section>
 
         <section>
-          <h3 className="mb-2 font-semibold text-gray-900">
+          <h3 className="mb-2 font-semibold text-white">
             ④ 상품별 환불 기준표
           </h3>
           <div className="overflow-x-auto">
             <table className="min-w-full border-collapse text-xs">
               <thead>
-                <tr className="bg-gray-50 text-left text-gray-700">
-                  <th className="whitespace-nowrap border border-gray-200 px-3 py-2 font-semibold">
+                <tr className="bg-[#1a1a1a] text-left text-[#a3a3a3]">
+                  <th className="whitespace-nowrap border border-[#2e2e2e] px-3 py-2 font-semibold">
                     상황
                   </th>
-                  <th className="border border-gray-200 px-3 py-2 font-semibold">
+                  <th className="border border-[#2e2e2e] px-3 py-2 font-semibold">
                     환불 가능 여부
                   </th>
-                  <th className="border border-gray-200 px-3 py-2 font-semibold">
+                  <th className="border border-[#2e2e2e] px-3 py-2 font-semibold">
                     환불율
                   </th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top font-medium text-white">
                     결제일로부터 7일 이내
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     가능
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     100%
                   </td>
                 </tr>
-                <tr className="bg-gray-50/50">
-                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                <tr className="bg-[#1a1a1a]/40">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top font-medium text-white">
                     결제 후 PDF 미수령 (3영업일 경과)
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     가능
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     100%
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top font-medium text-white">
                     PDF 열람 또는 다운로드 이후
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     불가
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     0%
                   </td>
                 </tr>
-                <tr className="bg-gray-50/50">
-                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                <tr className="bg-[#1a1a1a]/40">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top font-medium text-white">
                     회사 귀책으로 콘텐츠 미제공·오류
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     가능
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     100%
                   </td>
                 </tr>
                 <tr>
-                  <td className="border border-gray-200 px-3 py-2 align-top font-medium">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top font-medium text-white">
                     단순 변심·해석 불만족
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     불가
                   </td>
-                  <td className="border border-gray-200 px-3 py-2 align-top">
+                  <td className="border border-[#2e2e2e] px-3 py-2 align-top">
                     0%
                   </td>
                 </tr>
@@ -264,21 +265,23 @@ const articles: Article[] = [
         </section>
 
         <section>
-          <h3 className="mb-1 font-semibold text-gray-900">⑤ 환불 신청 방법</h3>
+          <h3 className="mb-1 font-semibold text-white">⑤ 환불 신청 방법</h3>
           <ol className="list-decimal space-y-1 pl-5">
             <li>서비스 내 [고객센터 &gt; 1:1 문의]로 신청</li>
             <li>
               이메일:{" "}
               <a
                 href="mailto:yeongsaju@gmail.com"
-                className="text-blue-600 hover:underline"
+                className="text-amber-300 hover:underline"
               >
                 yeongsaju@gmail.com
               </a>
             </li>
             <li>전화: 010-2889-0744 (평일 10:00 – 18:00, 주말·공휴일 제외)</li>
           </ol>
-          <p className="mt-2">환불 요청 시 아래 정보를 함께 제공해주셔야 합니다.</p>
+          <p className="mt-2">
+            환불 요청 시 아래 정보를 함께 제공해주셔야 합니다.
+          </p>
           <ul className="mt-1 list-disc space-y-1 pl-5">
             <li>결제자명, 결제일시, 결제수단, 결제금액</li>
             <li>환불 요청 사유</li>
@@ -286,7 +289,7 @@ const articles: Article[] = [
         </section>
 
         <section>
-          <h3 className="mb-1 font-semibold text-gray-900">
+          <h3 className="mb-1 font-semibold text-white">
             ⑥ 환불 처리 기간 및 방법
           </h3>
           <ol className="list-decimal space-y-1 pl-5">
@@ -309,7 +312,10 @@ const articles: Article[] = [
                   간편결제(카카오페이·네이버페이·토스페이 등): 각 결제사 정책에
                   따라 즉시 ~ 5 영업일 내 처리
                 </li>
-                <li>계좌이체: 회원이 지정한 본인 명의 계좌로 환불 (영업일 기준 3~7일)</li>
+                <li>
+                  계좌이체: 회원이 지정한 본인 명의 계좌로 환불 (영업일 기준
+                  3~7일)
+                </li>
               </ul>
             </li>
             <li>
@@ -320,7 +326,7 @@ const articles: Article[] = [
         </section>
 
         <section>
-          <h3 className="mb-1 font-semibold text-gray-900">
+          <h3 className="mb-1 font-semibold text-white">
             ⑦ 회사 귀책사유로 인한 환불
           </h3>
           <p>
@@ -385,26 +391,29 @@ const articles: Article[] = [
           표시 의무 사항은 다음과 같습니다.
         </p>
         <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm">
-          <dt className="font-medium text-gray-900">상호</dt>
+          <dt className="font-medium text-white">상호</dt>
           <dd>그릿</dd>
-          <dt className="font-medium text-gray-900">대표자</dt>
+          <dt className="font-medium text-white">대표자</dt>
           <dd>이재민</dd>
-          <dt className="font-medium text-gray-900">사업자등록번호</dt>
+          <dt className="font-medium text-white">사업자등록번호</dt>
           <dd>231-15-02173</dd>
-          <dt className="font-medium text-gray-900">통신판매업 신고번호</dt>
+          <dt className="font-medium text-white">통신판매업 신고번호</dt>
           <dd>2022-고양일산동-2720</dd>
-          <dt className="font-medium text-gray-900">주소</dt>
-          <dd>경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동, 아트다운)</dd>
-          <dt className="font-medium text-gray-900">이메일</dt>
+          <dt className="font-medium text-white">주소</dt>
+          <dd>
+            경기도 고양시 일산서구 산현로 17번길 7-8, 1층 102호 q33호(탄현동,
+            아트다운)
+          </dd>
+          <dt className="font-medium text-white">이메일</dt>
           <dd>
             <a
               href="mailto:yeongsaju@gmail.com"
-              className="text-blue-600 hover:underline"
+              className="text-amber-300 hover:underline"
             >
               yeongsaju@gmail.com
             </a>
           </dd>
-          <dt className="font-medium text-gray-900">전화</dt>
+          <dt className="font-medium text-white">전화</dt>
           <dd>
             <a href="tel:01028890744" className="hover:underline">
               010-2889-0744
@@ -418,35 +427,37 @@ const articles: Article[] = [
 
 export default function TermsPage() {
   return (
-    <main className="mx-auto flex-1 px-4 py-8 md:max-w-3xl">
-      <header className="mb-6 border-b border-gray-200 pb-4">
-        <h1 className="text-3xl font-bold text-gray-900">
-          영사주 서비스 이용약관
-        </h1>
-        <p className="mt-2 text-sm text-gray-500">
-          시행일: 2026년 4월 24일 · 최종 업데이트: 2026년 4월 24일
-        </p>
-      </header>
+    <main className="flex-1 bg-[#1a1a1a]">
+      <div className="mx-auto px-4 pb-10 pt-20 md:max-w-2xl">
+        <header className="mb-8 border-b border-[#2e2e2e] pb-6 mx-4">
+          <h1 className="text-2xl font-extrabold text-white">
+            서비스 이용약관
+          </h1>
+          <p className="mt-2 text-sm text-[#a3a3a3]">
+            시행일: 2026년 4월 24일 · 최종 업데이트: 2026년 4월 24일
+          </p>
+        </header>
 
-      <section className="space-y-6 text-sm leading-relaxed text-gray-700">
-        {articles.map((article) => (
-          <article
-            key={article.id}
-            id={article.id}
-            className="scroll-mt-24 rounded-lg border border-gray-200 bg-white p-4"
-          >
-            <h2 className="mb-2 text-base font-bold text-red-500">
-              {article.title}
-            </h2>
-            <div className="space-y-2">{article.body}</div>
-          </article>
-        ))}
+        <section className="space-y-4 text-sm leading-relaxed text-[#a3a3a3]">
+          {articles.map((article) => (
+            <article
+              key={article.id}
+              id={article.id}
+              className="scroll-mt-24 p-5"
+            >
+              <h2 className="mb-3 text-base font-bold text-white">
+                {article.title}
+              </h2>
+              <div className="space-y-2">{article.body}</div>
+            </article>
+          ))}
 
-        <div className="rounded-lg bg-yellow-50 px-4 py-3 text-xs text-gray-500">
-          <p className="font-medium text-gray-700">부칙</p>
-          <p className="mt-1">이 약관은 2026년 4월 24일부터 시행합니다.</p>
-        </div>
-      </section>
+          <div className="rounded bg-[#282828] px-5 py-4 text-xs text-[#a3a3a3]">
+            <p className="font-medium text-white">부칙</p>
+            <p className="mt-1">이 약관은 2026년 4월 24일부터 시행합니다.</p>
+          </div>
+        </section>
+      </div>
     </main>
   );
 }
