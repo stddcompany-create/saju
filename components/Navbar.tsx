@@ -55,7 +55,10 @@ export default function Navbar() {
       {/* 1줄: 사이트 이름 + 햄버거 */}
       <div className="flex items-center justify-between px-4 py-3">
         {isHome ? (
-          <Link href="/" className="text-xl font-bold text-gray-900">
+          <Link
+            href="/"
+            className="font-(family-name:--font-deogon) text-3xl text-gray-900 [-webkit-text-stroke:0.4px_currentColor]"
+          >
             영사주
           </Link>
         ) : (
