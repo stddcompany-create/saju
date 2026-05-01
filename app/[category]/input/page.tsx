@@ -1,12 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import ProductHeader from "@/components/ProductHeader";
+import {
+  TIME_OPTIONS,
+  loadOrderInput,
+  saveOrderInput,
+} from "@/lib/order-input";
 
 // ─── 유효성 검사 ────────────────────────────────────────────
 const BIRTHDATE_PATTERN = /^\d{4}\.\d{2}\.\d{2}$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function validateBirthdate(value: string): string | null {
   if (!value.trim()) return "생년월일을 입력하세요";
@@ -27,31 +32,22 @@ function validateName(value: string): string | null {
   return null;
 }
 
-// ─── 시간 옵션 ────────────────────────────────────────────
-const TIME_OPTIONS = [
-  { label: "태어난 시간", value: "" },
-  { label: "시간 모름", value: "99" },
-  { label: "조자/朝子 (00:00~01:29)", value: "00" },
-  { label: "축/丑 (01:30~03:29)", value: "02" },
-  { label: "인/寅 (03:30~05:29)", value: "04" },
-  { label: "묘/卯 (05:30~07:29)", value: "06" },
-  { label: "진/辰 (07:30~09:29)", value: "08" },
-  { label: "사/巳 (09:30~11:29)", value: "10" },
-  { label: "오/午 (11:30~13:29)", value: "12" },
-  { label: "미/未 (13:30~15:29)", value: "14" },
-  { label: "신/申 (15:30~17:29)", value: "16" },
-  { label: "유/酉 (17:30~19:29)", value: "18" },
-  { label: "술/戌 (19:30~21:29)", value: "20" },
-  { label: "해/亥 (21:30~23:29)", value: "22" },
-  { label: "야자/夜子 (23:30~23:59)", value: "24" },
-];
+function validateEmail(value: string): string | null {
+  if (!value.trim()) return "이메일을 입력하세요";
+  if (!EMAIL_PATTERN.test(value.trim()))
+    return "올바른 이메일 주소를 입력하세요";
+  return null;
+}
 
 // ─── 메인 컴포넌트 ────────────────────────────────────────
-export default function InputPage() {
+export default function CategoryInputPage() {
   const router = useRouter();
+  const params = useParams<{ category: string }>();
+  const category = params.category;
 
   // 입력값 상태
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [calendarType, setCalendarType] = useState<"solar" | "lunar">("solar");
   const [birthTime, setBirthTime] = useState("");
@@ -60,7 +56,20 @@ export default function InputPage() {
   // 검증 관련 상태
   const [submitted, setSubmitted] = useState(false);
   const [nameError, setNameError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
   const [birthdateError, setBirthdateError] = useState<string | null>(null);
+
+  // 이전에 입력한 값이 있다면 프리필
+  useEffect(() => {
+    const prev = loadOrderInput();
+    if (!prev) return;
+    setName(prev.name);
+    setEmail(prev.email);
+    setBirthdate(prev.birthdate);
+    setCalendarType(prev.calendarType);
+    setBirthTime(prev.birthTime);
+    setGender(prev.gender);
+  }, []);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -68,13 +77,18 @@ export default function InputPage() {
     if (submitted) setNameError(validateName(val));
   };
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setEmail(val);
+    if (submitted) setEmailError(validateEmail(val));
+  };
+
   const formatBirthdate = (input: string): string => {
     // 숫자만 추출 (최대 8자리: YYYYMMDD)
     const digits = input.replace(/\D/g, "").slice(0, 8);
 
     if (digits.length <= 4) return digits;
-    if (digits.length <= 6)
-      return `${digits.slice(0, 4)}.${digits.slice(4)}`;
+    if (digits.length <= 6) return `${digits.slice(0, 4)}.${digits.slice(4)}`;
     return `${digits.slice(0, 4)}.${digits.slice(4, 6)}.${digits.slice(6)}`;
   };
 
@@ -90,22 +104,36 @@ export default function InputPage() {
 
   const isBirthdateValid = validateBirthdate(birthdate) === null;
   const isNameValid = validateName(name) === null;
+  const isEmailValid = validateEmail(email) === null;
   const isTimeSelected = birthTime !== "";
   const isGenderSelected = gender !== null;
   const canSubmit =
-    isNameValid && isBirthdateValid && isTimeSelected && isGenderSelected;
+    isNameValid &&
+    isEmailValid &&
+    isBirthdateValid &&
+    isTimeSelected &&
+    isGenderSelected;
 
   const handleSubmit = () => {
     setSubmitted(true);
     const nErr = validateName(name);
+    const eErr = validateEmail(email);
     const bErr = validateBirthdate(birthdate);
     setNameError(nErr);
+    setEmailError(eErr);
     setBirthdateError(bErr);
 
-    if (!canSubmit) return;
+    if (!canSubmit || gender === null) return;
 
-    console.log({ name, birthdate, calendarType, birthTime, gender });
-    router.push("/jonghap");
+    saveOrderInput({
+      name: name.trim(),
+      email: email.trim(),
+      birthdate,
+      calendarType,
+      birthTime,
+      gender,
+    });
+    router.push(`/${category}/detail`);
   };
 
   return (
@@ -121,13 +149,10 @@ export default function InputPage() {
         {/* 어두운 오버레이 */}
         <div className="absolute inset-0 bg-black/85" />
 
-        {/* 상단 로고 + 로그인 */}
-        <ProductHeader />
-
         {/* 폼 영역 */}
-        <div className="relative z-10 flex flex-1 flex-col justify-end space-y-6 px-6 pb-6 pt-20">
+        <div className="relative z-10 flex flex-1 flex-col justify-end space-y-6 px-4 pb-6 pt-20">
           {/* 이름 */}
-          <div>
+          <div className="px-2">
             <label className="mb-2 block text-sm font-semibold text-white">
               이름
             </label>
@@ -137,8 +162,8 @@ export default function InputPage() {
               value={name}
               onChange={handleNameChange}
               maxLength={4}
-              className={`w-full border-b bg-transparent py-2 text-sm text-white placeholder-gray-500 outline-none ${
-                nameError ? "border-red-500" : "border-gray-600"
+              className={`w-full border-b bg-transparent py-2 text-sm text-white placeholder-white/50 outline-none ${
+                nameError ? "border-red-500" : "border-white/40"
               }`}
             />
             {nameError && (
@@ -146,8 +171,28 @@ export default function InputPage() {
             )}
           </div>
 
+          {/* 이메일 */}
+          <div className="px-2">
+            <label className="mb-2 block text-sm font-semibold text-white">
+              이메일
+            </label>
+            <input
+              type="email"
+              placeholder="결과를 받아보실 이메일을 입력해 주세요."
+              value={email}
+              onChange={handleEmailChange}
+              autoComplete="email"
+              className={`w-full border-b bg-transparent py-2 text-sm text-white placeholder-white/50 outline-none ${
+                emailError ? "border-red-500" : "border-white/40"
+              }`}
+            />
+            {emailError && (
+              <p className="mt-1 text-xs text-red-500">{emailError}</p>
+            )}
+          </div>
+
           {/* 생년월일 */}
-          <div>
+          <div className="px-2">
             <div className="mb-2 flex items-center justify-between">
               <label className="text-sm font-semibold text-white">
                 생년월일
@@ -162,7 +207,7 @@ export default function InputPage() {
                     className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
                       calendarType === "solar"
                         ? "border-white bg-white"
-                        : "border-gray-500 bg-transparent"
+                        : "border-white/40 bg-transparent"
                     }`}
                   >
                     {calendarType === "solar" && (
@@ -171,7 +216,7 @@ export default function InputPage() {
                   </span>
                   <span
                     className={
-                      calendarType === "solar" ? "text-white" : "text-gray-500"
+                      calendarType === "solar" ? "text-white" : "text-white/50"
                     }
                   >
                     양력
@@ -186,7 +231,7 @@ export default function InputPage() {
                     className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
                       calendarType === "lunar"
                         ? "border-white bg-white"
-                        : "border-gray-500 bg-transparent"
+                        : "border-white/40 bg-transparent"
                     }`}
                   >
                     {calendarType === "lunar" && (
@@ -195,7 +240,7 @@ export default function InputPage() {
                   </span>
                   <span
                     className={
-                      calendarType === "lunar" ? "text-white" : "text-gray-500"
+                      calendarType === "lunar" ? "text-white" : "text-white/50"
                     }
                   >
                     음력
@@ -211,8 +256,8 @@ export default function InputPage() {
               value={birthdate}
               onChange={handleBirthdateChange}
               maxLength={10}
-              className={`w-full border-b bg-transparent py-2 text-sm text-white placeholder-gray-500 outline-none ${
-                birthdateError ? "border-red-500" : "border-gray-600"
+              className={`w-full border-b bg-transparent py-2 text-sm text-white placeholder-white/50 outline-none ${
+                birthdateError ? "border-red-500" : "border-white/40"
               }`}
             />
             {birthdateError && (
@@ -221,7 +266,7 @@ export default function InputPage() {
           </div>
 
           {/* 태어난 시간 */}
-          <div>
+          <div className="px-2">
             <div className="mb-2 flex items-center justify-between">
               <label className="text-sm font-semibold text-white">
                 태어난 시간
@@ -235,7 +280,7 @@ export default function InputPage() {
                   className={`flex h-4 w-4 items-center justify-center rounded-full border-2 ${
                     birthTime === "99"
                       ? "border-white bg-white"
-                      : "border-gray-500 bg-transparent"
+                      : "border-white/40 bg-transparent"
                   }`}
                 >
                   {birthTime === "99" && (
@@ -243,7 +288,9 @@ export default function InputPage() {
                   )}
                 </span>
                 <span
-                  className={birthTime === "99" ? "text-white" : "text-gray-500"}
+                  className={
+                    birthTime === "99" ? "text-white" : "text-white/50"
+                  }
                 >
                   시간 모름
                 </span>
@@ -254,7 +301,7 @@ export default function InputPage() {
               <select
                 value={birthTime}
                 onChange={(e) => setBirthTime(e.target.value)}
-                className="w-full appearance-none border-b border-gray-600 bg-transparent py-2 text-sm text-white outline-none [&>option]:bg-gray-900 [&>option]:text-white"
+                className="w-full appearance-none border-b border-white/40 bg-transparent py-2 text-sm text-white outline-none [&>option]:bg-gray-900 [&>option]:text-white"
               >
                 {TIME_OPTIONS.map((opt) => (
                   <option
@@ -267,14 +314,14 @@ export default function InputPage() {
                   </option>
                 ))}
               </select>
-              <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400">
+              <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-white/50">
                 ▾
               </span>
             </div>
           </div>
 
           {/* 성별 */}
-          <div>
+          <div className="px-2">
             <label className="mb-3 block text-sm font-semibold text-white">
               성별
             </label>
@@ -285,7 +332,7 @@ export default function InputPage() {
                 className={`rounded-xl border py-3 text-sm font-medium transition-colors ${
                   gender === "male"
                     ? "border-white bg-white/10 text-white"
-                    : "border-gray-700 text-gray-400"
+                    : "border-white/40 text-white/50"
                 }`}
               >
                 남성
@@ -296,7 +343,7 @@ export default function InputPage() {
                 className={`rounded-xl border py-3 text-sm font-medium transition-colors ${
                   gender === "female"
                     ? "border-white bg-white/10 text-white"
-                    : "border-gray-700 text-gray-400"
+                    : "border-white/40 text-white/50"
                 }`}
               >
                 여성
@@ -307,8 +354,8 @@ export default function InputPage() {
           {/* 하단 버튼 */}
           <div className="flex gap-3 pt-2">
             <Link
-              href="/test/greeting"
-              className="flex items-center justify-center rounded-xl border border-gray-600 px-5 py-4 text-sm font-medium text-white"
+              href={`/${category}/greeting`}
+              className="flex items-center justify-center rounded-xl bg-white/10 px-6 py-4 text-center text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/20"
             >
               이전
             </Link>
@@ -318,8 +365,8 @@ export default function InputPage() {
               disabled={!canSubmit}
               className={`flex-1 rounded-xl py-4 text-sm font-semibold transition-all ${
                 canSubmit
-                  ? "cursor-pointer bg-[#FF6F0F] text-white hover:bg-[#E65F00]"
-                  : "cursor-not-allowed bg-gray-700 text-gray-400"
+                  ? "cursor-pointer bg-[#E65F00] text-white hover:bg-[#D25000]"
+                  : "cursor-not-allowed bg-white/40 text-white/50"
               }`}
             >
               다 입력했어!
