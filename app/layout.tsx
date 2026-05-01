@@ -36,7 +36,7 @@ export default function RootLayout({
       lang="ko"
       className={`${geistSans.variable} ${geistMono.variable} ${deogonPrincess.variable} h-full antialiased`}
     >
-      <body className="mx-auto min-h-full max-w-2xl flex flex-col">
+      <body className="mx-auto min-h-full max-w-[448px] flex flex-col">
         <Navbar />
         {children}
         <Footer />
