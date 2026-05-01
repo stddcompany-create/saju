@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# claude code IDE settings (개인 설정이라 공유 안 함)
+.claude/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

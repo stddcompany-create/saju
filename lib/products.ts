@@ -22,7 +22,7 @@ export const products: Product[] = [
     href: "/test",
     price: 0,
     originalPrice: 0,
-    category: "기타",
+    category: "종합",
     intro: ["테스트 페이지입니다."],
     sections: ["테스트 흐름 확인"],
   },
