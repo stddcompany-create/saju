@@ -24,19 +24,12 @@ export default async function CategoryDetailPage({
       <main className="flex-1 bg-[#1a1a1a]">
         <div className="pb-8 pt-20">
           <Image
-            src="/images/jonghap-detail-1.png"
-            alt="철학관 소개 및 복비 안내"
+            src="/images/jonghap-detail.png"
+            alt="평생사주 상세 안내"
             width={820}
-            height={4978}
+            height={7955}
             className="h-auto w-full"
             priority
-          />
-          <Image
-            src="/images/jonghap-detail-2.png"
-            alt="평생사주 후기 및 단골 통계"
-            width={820}
-            height={4978}
-            className="h-auto w-full"
           />
           <div className="mt-6 px-4">
             <SajuForm productId={product.id} price={product.price} />
